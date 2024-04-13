@@ -1,8 +1,9 @@
 import os
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Union
 
-from environs import Env
+from environs import Env, EnvValidationError
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -48,7 +49,13 @@ class DatabaseConfig:
 @dataclass
 class TONAPIConfig:
     KEY: str
-    TONCONNECT_KEY: str
+    TONCONNECT_KEY: Union[str, None]
+
+
+@dataclass
+class SchedulerConfig:
+    CHECK_CHAT_MEMBERS_INTERVAL: int
+    UPDATE_TOKEN_HOLDERS_INTERVAL: int
 
 
 @dataclass
@@ -57,6 +64,7 @@ class Config:
     redis: RedisConfig
     database: DatabaseConfig
     tonapi: TONAPIConfig
+    scheduler: SchedulerConfig
 
     IS_TESTNET: bool
     MANIFEST_URL: str
@@ -65,6 +73,11 @@ class Config:
 def load_config() -> Config:
     env = Env()
     env.read_env()
+
+    try:
+        tonconnect_key = env.str("TONAPI_TONCONNECT_KEY", None)
+    except EnvValidationError:
+        tonconnect_key = None
 
     return Config(
         bot=BotConfig(
@@ -83,8 +96,13 @@ def load_config() -> Config:
         ),
         tonapi=TONAPIConfig(
             KEY=env.str("TONAPI_KEY"),
-            TONCONNECT_KEY=env.str("TONAPI_TONCONNECT_KEY"),
+            TONCONNECT_KEY=tonconnect_key,
         ),
+        scheduler=SchedulerConfig(
+            CHECK_CHAT_MEMBERS_INTERVAL=env.int("SCHEDULER_CHECK_CHAT_MEMBERS_INTERVAL"),
+            UPDATE_TOKEN_HOLDERS_INTERVAL=env.int("SCHEDULER_UPDATE_TOKEN_HOLDERS_INTERVAL"),
+        ),
+
         IS_TESTNET=env.bool("IS_TESTNET"),
         MANIFEST_URL=env.str("MANIFEST_URL"),
     )

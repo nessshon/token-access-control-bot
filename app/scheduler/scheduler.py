@@ -66,7 +66,7 @@ class Scheduler:
         return self.scheduler.add_job(
             func=tasks.update_token_holders,
             trigger="interval",
-            minutes=5,
+            minutes=self.config.scheduler.UPDATE_TOKEN_HOLDERS_INTERVAL,
             id=job_id,
         )
 
@@ -81,7 +81,7 @@ class Scheduler:
         return self.scheduler.add_job(
             func=tasks.check_chats_members,
             trigger="interval",
-            minutes=1,
+            minutes=self.config.scheduler.CHECK_CHAT_MEMBERS_INTERVAL,
             id=job_id,
         )
 
