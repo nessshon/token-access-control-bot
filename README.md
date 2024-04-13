@@ -13,7 +13,7 @@
 
 ## Features
 
-* **TON-Connect Integration:** Seamless integration with TON-Connect for a secure and user-friendly experience.
+* **TON-Connect Integration:** For a secure and user-friendly experience.
 
 * **Testnet and Mainnet Support:** Supports testnet and mainnet for flexible testing and deployment.
 
@@ -88,6 +88,7 @@
 16. You're all set!
 
 </details>
+
 ## Environment Variables Reference
 
 <details>
