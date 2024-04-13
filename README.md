@@ -34,13 +34,14 @@
    proper functioning of TON Connect on the backend under heavy user load. You can get the key by contacting @subden via
    private message. Inform him about your project and the need for this key.
 
-5. Customize the bot's texts in the [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py)
-   file according to your requirements, if desired.
+5. If desired, customize the bot's texts in
+   the [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py) file according to your
+   requirements.
 
-6. Add your preferred language
+6. if desired, add your preferred language
    to [SUPPORTED_LANGUAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4) and add the
    corresponding codes to [TEXT_BUTTONS](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9)
-   and [TEXT_MESSAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54), if desired.
+   and [TEXT_MESSAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54).
 
 7. Clone the repository:
 
