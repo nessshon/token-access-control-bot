@@ -119,6 +119,12 @@ Here's a comprehensive reference guide for the environment variables used in the
 We welcome your contributions! If you have ideas for improvement or have identified a bug, please create an issue or
 submit a pull request.
 
+## Donations
+
+**TON** - `EQC-3ilVr-W0Uc3pLrGJElwSaFxvhXXfkiQA3EwdVBHNNess`
+
+**USDT** (TRC-20) - `TJjADKFT2i7jqNJAxkgeRm5o9uarcoLUeR`
+
 ## Support
 
 Supported by [TON Society](https://github.com/ton-society/grants-and-bounties), Grants and Bounties program.
