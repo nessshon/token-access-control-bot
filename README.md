@@ -7,7 +7,9 @@
 [![Redis](https://img.shields.io/badge/Redis-Yes?logo=redis&color=white)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-blue?logo=docker&logoColor=white)](https://www.docker.com/)
 
-...
+Access Control Bot is a specialized bot that utilizes NFT tokens and/or Jettons to manage access to your private
+Telegram chats. This convenient solution allows you to control who has access to your groups and when, using tokens as
+unique non-transferable identifiers for each participant.
 
 * Bot example: [@TONTokenAccessControlBot](https://t.me/TONTokenAccessControlBot)
 
