@@ -169,6 +169,20 @@ class AbstractModel(Base):
             return instance
 
     @classmethod
+    async def delete_by_filter(
+            cls: t.Type[T],
+            sessionmaker: async_sessionmaker,
+            **kwargs,
+    ) -> T | None:
+        """Delete a record from the database by a filter."""
+        async with sessionmaker() as async_session:
+            instance = await cls.get_by_filter(sessionmaker, **kwargs)
+            if instance:
+                await async_session.delete(instance)
+                await async_session.commit()
+            return instance
+
+    @classmethod
     async def create_or_update(
             cls: t.Type[T],
             sessionmaker: async_sessionmaker,
