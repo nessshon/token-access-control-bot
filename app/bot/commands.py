@@ -6,12 +6,11 @@ from aiogram.exceptions import TelegramBadRequest
 from aiogram.types import BotCommandScopeAllPrivateChats, BotCommand, BotCommandScopeChat
 
 
-async def bot_commands_setup(bot: Bot, admins_ids: List[int]) -> None:
+async def bot_commands_setup(bot: Bot) -> None:
     """
     Setup bot commands.
 
     :param bot: The Bot object.
-    :param admins_ids: List of admin IDs.
     """
     commands = {
         "en": [
@@ -19,14 +18,6 @@ async def bot_commands_setup(bot: Bot, admins_ids: List[int]) -> None:
         ],
         "ru": [
             BotCommand(command="start", description="Перезапустить бота"),
-        ]
-    }
-    admin_commands = {
-        "en": [
-            BotCommand(command="admin", description="Admin panel"),
-        ],
-        "ru": [
-            BotCommand(command="admin", description="Панель администратора"),
         ]
     }
 
@@ -42,27 +33,12 @@ async def bot_commands_setup(bot: Bot, admins_ids: List[int]) -> None:
         language_code="ru"
     )
 
-    # Set commands for all admin chats
-    for admin_id in admins_ids:
-        with suppress(TelegramBadRequest):
-            await bot.set_my_commands(
-                commands=commands["en"] + admin_commands["en"],
-                scope=BotCommandScopeChat(chat_id=admin_id),
-            )
-        with suppress(TelegramBadRequest):
-            await bot.set_my_commands(
-                commands=commands["ru"] + admin_commands["ru"],
-                scope=BotCommandScopeChat(chat_id=admin_id),
-                language_code="ru"
-            )
 
-
-async def bot_commands_delete(bot: Bot, admins_ids: List[int]) -> None:
+async def bot_commands_delete(bot: Bot) -> None:
     """
     Delete bot commands.
 
     :param bot: The Bot object.
-    :param admins_ids: List of admin IDs.
     """
 
     # Delete commands for all private chats in any language
@@ -74,6 +50,48 @@ async def bot_commands_delete(bot: Bot, admins_ids: List[int]) -> None:
         scope=BotCommandScopeAllPrivateChats(),
         language_code="ru",
     )
+
+
+async def bot_admin_commands_setup(bot, admins_ids: List[int]) -> None:
+    """
+    Setup bot admin commands.
+
+    :param bot: The Bot object.
+    :param admins_ids: List of admin IDs.
+    """
+    admin_commands = {
+        "en": [
+            BotCommand(command="start", description="Restart bot"),
+            BotCommand(command="admin", description="Admin panel"),
+        ],
+        "ru": [
+            BotCommand(command="start", description="Перезапустить бота"),
+            BotCommand(command="admin", description="Панель администратора"),
+        ]
+    }
+
+    # Set commands for all admin chats
+    for admin_id in admins_ids:
+        with suppress(TelegramBadRequest):
+            await bot.set_my_commands(
+                commands=admin_commands["en"],
+                scope=BotCommandScopeChat(chat_id=admin_id),
+            )
+        with suppress(TelegramBadRequest):
+            await bot.set_my_commands(
+                commands=admin_commands["ru"],
+                scope=BotCommandScopeChat(chat_id=admin_id),
+                language_code="ru"
+            )
+
+
+async def bot_admin_commands_delete(bot, admins_ids: List[int]) -> None:
+    """
+    Delete bot admin commands.
+
+    :param bot: The Bot object.
+    :param admins_ids: List of admin IDs.
+    """
 
     # Delete commands for all admin chats
     for admin_id in admins_ids:

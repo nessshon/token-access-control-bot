@@ -9,6 +9,10 @@ from app.db.models import UserDB, ChatDB, TokenDB, AdminDB
 from ._filters import AdminFilter
 from .windows import AdminWindow
 from ..private.windows import Window
+from ...commands import (
+    bot_admin_commands_setup,
+    bot_admin_commands_delete,
+)
 from ...manager import Manager
 from ...utils.states import AdminState
 from ...utils.validations import is_decimal
@@ -285,6 +289,11 @@ async def admin_confirm_delete_callback_query(call: CallbackQuery, manager: Mana
         await manager.state.update_data(page=1)
         await AdminWindow.admins_menu(manager)
 
+        await bot_admin_commands_delete(
+            manager.bot,
+            admins_ids=[admin.user.id],
+        )
+
     await call.answer()
 
 
@@ -305,7 +314,7 @@ async def admin_confirm_add_callback_query(call: CallbackQuery, manager: Manager
         state_data = await manager.state.get_data()
         user = User(**state_data.get("user"))
 
-        await AdminDB.create_or_update(
+        admin = await AdminDB.create_or_update(
             manager.sessionmaker,
             user_id=user.id,
         )
@@ -315,5 +324,10 @@ async def admin_confirm_add_callback_query(call: CallbackQuery, manager: Manager
         await call.answer(text, show_alert=True)
         await manager.state.update_data(page=1)
         await AdminWindow.chats_menu(manager)
+
+        await bot_admin_commands_setup(
+            manager.bot,
+            admins_ids=[admin.user_id],
+        )
 
     await call.answer()

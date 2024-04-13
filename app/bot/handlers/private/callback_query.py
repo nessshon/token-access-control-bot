@@ -1,5 +1,6 @@
 from aiogram import Router, F
 from aiogram.types import CallbackQuery
+from aiogram_newsletter.manager import ANManager
 from aiogram_tonconnect import ATCManager
 from aiogram_tonconnect.tonconnect.models import ConnectWalletCallbacks
 
@@ -22,7 +23,12 @@ async def main_callback_query(call: CallbackQuery, manager: Manager) -> None:
 
 
 @router.callback_query(UserState.SELECT_LANGUAGE)
-async def select_language_callback_query(call: CallbackQuery, manager: Manager, atc_manager: ATCManager) -> None:
+async def select_language_callback_query(
+        call: CallbackQuery,
+        manager: Manager,
+        atc_manager: ATCManager,
+        an_manager: ANManager,
+) -> None:
     if call.data in list(SUPPORTED_LANGUAGES.keys()):
         await manager.send_loader_message()
 
@@ -32,6 +38,7 @@ async def select_language_callback_query(call: CallbackQuery, manager: Manager, 
             language_code=call.data,
         )
         await atc_manager.update_interfaces_language(call.data)
+        await an_manager.update_interfaces_language(call.data)
         manager.text_message = TextMessage(call.data)
         manager.text_button = TextButton(call.data)
 

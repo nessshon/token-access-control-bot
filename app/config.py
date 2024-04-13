@@ -3,7 +3,9 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Union
 
-from environs import Env, EnvValidationError
+import environs
+
+from environs import Env
 
 BASE_DIR = Path(__file__).resolve().parent
 
@@ -76,7 +78,7 @@ def load_config() -> Config:
 
     try:
         tonconnect_key = env.str("TONAPI_TONCONNECT_KEY", None)
-    except EnvValidationError:
+    except environs.EnvValidationError:
         tonconnect_key = None
 
     return Config(

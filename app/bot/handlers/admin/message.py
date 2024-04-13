@@ -66,7 +66,7 @@ async def token_send_amount_message(message: Message, manager: Manager) -> None:
             else None
         )
 
-        if token_type == TokenDB.Type.NFTCollection and not min_amount.is_integer():
+        if min_amount and token_type == TokenDB.Type.NFTCollection and not min_amount.is_integer():
             min_amount = int(min_amount)
 
         if min_amount and min_amount > 0:
@@ -92,7 +92,7 @@ async def token_edit_amount_message(message: Message, manager: Manager) -> None:
             else None
         )
 
-        if token.type == TokenDB.Type.NFTCollection and not min_amount.is_integer():
+        if min_amount and token.type == TokenDB.Type.NFTCollection and not min_amount.is_integer():
             min_amount = int(min_amount)
 
         if min_amount and min_amount > 0:

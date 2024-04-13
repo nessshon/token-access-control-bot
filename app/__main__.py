@@ -16,6 +16,8 @@ from sqlalchemy.ext.asyncio import (
 from .bot.commands import (
     bot_commands_setup,
     bot_commands_delete,
+    bot_admin_commands_setup,
+    bot_admin_commands_delete,
 )
 from .bot.handlers import bot_routers_include
 from .bot.middlewares import bot_middlewares_register
@@ -59,7 +61,8 @@ async def on_startup(
     scheduler.run()
 
     admins_ids = await AdminDB.get_all_ids(sessionmaker, config)
-    await bot_commands_setup(bot, admins_ids)
+    await bot_commands_setup(bot)
+    await bot_admin_commands_setup(bot, admins_ids)
 
 
 async def on_shutdown(
@@ -74,7 +77,8 @@ async def on_shutdown(
     """
     admins_ids = await AdminDB.get_all_ids(sessionmaker, config)
 
-    await bot_commands_delete(bot, admins_ids)
+    await bot_commands_delete(bot)
+    await bot_admin_commands_delete(bot, admins_ids)
     await bot.delete_webhook()
     await bot.session.close()
     await engine.dispose()

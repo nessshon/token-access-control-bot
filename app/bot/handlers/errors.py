@@ -32,7 +32,8 @@ async def telegram_api_error(event: ErrorEvent, bot: Bot, config: Config) -> Non
     try:
         update_json = event.update.model_dump_json(indent=2, exclude_none=True)
     except PydanticSerializationError:
-        update_json = "Failed to serialize update"
+        return
+
     exc_text, exc_name = str(event.exception), type(event.exception).__name__
     update_data = str(update_json + "\n\n").encode()
     traceback_data = str(traceback.format_exc() + "\n\n").encode()

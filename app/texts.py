@@ -148,7 +148,7 @@ TEXT_MESSAGES = {
         "token_send_address": "<b>Введите адрес токена</b>\n\nРазрешены только адреса коллекций NFT и мастеров Jetton:",
         "token_send_address_error": "Недопустимый адрес токена:\n{}",
         "token_send_address_error_already_exist": "Токен с адресом {address} уже существует!",
-        "token_send_address_error_not_supported": "Токен {interfaces} не поддерживается.\nПоддерживаются только {supported_interfaces}.",
+        "token_send_address_error_not_supported": "Контракт {interfaces} не поддерживается.\nПоддерживаются только {supported_interfaces}.",
         "token_send_amount": (
             "<b>Информация о токене</b>:\n\n"
             "• <b>Тип:</b>\n{token_type}\n"
@@ -216,7 +216,7 @@ TEXT_MESSAGES = {
             f"{hide_link('https:telegra.phfile6b03c59182d959cddeb02.jpg')}"
             "🎉 <b>Congratulations!<b>\n\n"
             "You have access to our private chats.\n\n"
-            "<b>Click on the buttons<b> below and submit an application to join, "
+            "<b>Click on the buttons</b> below and submit an application to join, "
             "I will approve them immediately!"
         ),
 
@@ -279,7 +279,7 @@ TEXT_MESSAGES = {
         "token_send_address": "<b>Enter Token Address</b>\n\nOnly NFT collection and Jetton master addresses are allowed:",
         "token_send_address_error": "Invalid token address:\n{}",
         "token_send_address_error_already_exist": "Token with address {address} already exists!",
-        "token_send_address_error_not_supported": "Token {interfaces} is not supported.\nOnly {supported_interfaces} are supported.",
+        "token_send_address_error_not_supported": "Contract {interfaces} is not supported.\nOnly {supported_interfaces} are supported.",
         "token_send_amount": (
             "<b>Token Information</b>:\n\n"
             "• <b>Type:</b>\n"

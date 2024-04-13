@@ -214,4 +214,4 @@ def token_info(text_button: TextButton) -> Markup:
     inline_keyboard = [
         [Button(text=text_button.get("edit_min_amount"), callback_data="edit_min_amount")]
     ]
-    return Markup(inline_keyboard=inline_keyboard + back_add(text_button).inline_keyboard)
+    return Markup(inline_keyboard=inline_keyboard + back_delete(text_button).inline_keyboard)
