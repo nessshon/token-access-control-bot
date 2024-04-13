@@ -33,8 +33,9 @@ unique non-transferable identifiers for each participant.
 3. Create an API key on [tonconsole.com](https://tonconsole.com) (later referred to as `TONAPI_KEY`).
 
 4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`). This key is necessary for the
-   proper functioning of TON Connect on the backend under heavy user load. You can get the key by contacting @subden via
-   private message. Inform him about your project and the need for this key.
+   proper functioning of TON Connect on the backend under heavy user load. You can get the key by
+   contacting [@subden](https://t.me/subden)  via private message. Inform him about your project and the need for this
+   key.
 
 5. If desired, customize the bot's texts in
    the [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py) file according to your
