@@ -59,13 +59,15 @@ async def bot_added_to_channel(
     ),
     F.new_chat_member.user.is_bot.is_(False),
 )
-async def bot_left_from_channel(
-        event: ChatMemberUpdated,
-) -> None:
+async def bot_left_from_channel(event: ChatMemberUpdated, manager: Manager) -> None:
     """
     Member was left from channel.
     """
-    # TODO: Implement delete member from table MemberDB
+    await MemberDB.delete_by_filter(
+        manager.sessionmaker,
+        user_id=event.from_user.id,
+        chat_id=event.chat.id,
+    )
 
 
 @router.chat_join_request()
