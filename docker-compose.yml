@@ -9,8 +9,6 @@ services:
     container_name: "token-access-control-bot"
     restart: unless-stopped
     env_file: ./.env
-    ports:
-      - "8000:8000"
     depends_on:
       - redis
     volumes:
