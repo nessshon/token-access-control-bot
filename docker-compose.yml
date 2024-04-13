@@ -1,0 +1,28 @@
+version: "3.8"
+
+
+services:
+
+  bot:
+    build: .
+    command: sh -c "cd /usr/src/app && python -m app"
+    container_name: "token-access-control-bot"
+    restart: unless-stopped
+    env_file: ./.env
+    ports:
+      - "8000:8000"
+    depends_on:
+      - redis
+    volumes:
+      - ./:/usr/src/app
+
+  redis:
+    image: redis:7.2.3-alpine
+    container_name: "token-access-control-redis"
+    restart: unless-stopped
+    volumes:
+      - ./redis/data:/data
+
+
+volumes:
+  redis-data:
