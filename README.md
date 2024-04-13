@@ -26,22 +26,21 @@
 
 1. Create a private group and/or channel.
 
-2. Create a bot via [@BotFather](https://t.me/BotFather) and save the `TOKEN` (later it will be referred to
-   as `BOT_TOKEN`).
+2. Create a bot via [@BotFather](https://t.me/BotFather) and save the `TOKEN` (later referred to as `BOT_TOKEN`).
 
-3. Create an API key on [tonconsole.com](https://tonconsole.com) (Later referred to as `TONAPI_KEY`).
+3. Create an API key on [tonconsole.com](https://tonconsole.com) (later referred to as `TONAPI_KEY`).
 
 4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`). This key is necessary for the
    proper functioning of TON Connect on the backend under heavy user load. You can get the key by contacting @subden via
-   private message. Tell him about your project and the need for this key.
+   private message. Inform him about your project and the need for this key.
 
-5. If desired, customize the bot's texts in the file
-   named [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py) according to your needs.
+5. Customize the bot's texts in the [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py)
+   file according to your requirements, if desired.
 
-6. If desired, add your preferred language
-   to [SUPPORTED_LANGUAGES](https://github.com/nessshon/token-access-control-bot/blob/app/texts.py#L4) and add the
-   corresponding codes to [TEXT_BUTTONS](https://github.com/nessshon/token-access-control-bot/blob/app/texts.py#L9)
-   and [TEXT_MESSAGES](https://github.com/nessshon/token-access-control-bot/blob/app/texts.py#L54).
+6. Add your preferred language
+   to [SUPPORTED_LANGUAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4) and add the
+   corresponding codes to [TEXT_BUTTONS](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9)
+   and [TEXT_MESSAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54), if desired.
 
 7. Clone the repository:
 
@@ -49,12 +48,13 @@
     git clone https://github.com/nessshon/token-access-control-bot.git
     ```
 
-8. Change into the bot directory:
+8. Navigate to the bot directory:
 
     ```bash
     cd token-access-control-bot
     ```
-9. Clone environment variables file:
+
+9. Clone the environment variables file:
 
    ```bash
    cp .env.example .env
@@ -66,13 +66,13 @@
     nano .env
     ```
 
-11. Install Docker and Docker Compose
+11. Install Docker and Docker Compose:
 
     ```bash
     sudo apt install docker.io && docker-compose -y
     ```
 
-12. Running a bot in a docker container:
+12. Run the bot in a Docker container:
 
     ```bash
     docker-compose up --build
@@ -85,27 +85,26 @@
 15. Add the bot to your private chat, ensuring you grant permissions to add administrators. After that, the bot will
     prompt you to add the chat to the database for monitoring.
 
-16. Done!
+16. You're all set!
 
 </details>
-
 ## Environment Variables Reference
 
 <details>
 <summary>Click to expand</summary>
 
-Here is a comprehensive reference guide for the environment variables used in the project:
+Here's a comprehensive reference guide for the environment variables used in the project:
 
 | Variable                                  | Type   | Description                                                                                                                                                                                                                   | Example                                                                                   |
 |-------------------------------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------|
-| `BOT_TOKEN`                               | `str`  | Bot token, obtained from [@BotFather](https://t.me/BotFather)                                                                                                                                                                 | `123456:qweRTY`                                                                           | 
-| `BOT_DEV_ID`                              | `int`  | User ID of the bot developer, get it on [my_id_bot](https://t.me/my_id_bot)                                                                                                                                                   | `123456789`                                                                               |
-| `BOT_ADMIN_ID`                            | `int`  | User ID of the bot admin [my_id_bot](https://t.me/my_id_bot)                                                                                                                                                                  | `123456789`                                                                               |
+| `BOT_TOKEN`                               | `str`  | Bot token obtained from [@BotFather](https://t.me/BotFather)                                                                                                                                                                  | `123456:qweRTY`                                                                           | 
+| `BOT_DEV_ID`                              | `int`  | User ID of the bot developer, obtain it from [my_id_bot](https://t.me/my_id_bot)                                                                                                                                              | `123456789`                                                                               |
+| `BOT_ADMIN_ID`                            | `int`  | User ID of the bot admin, obtain it from [my_id_bot](https://t.me/my_id_bot)                                                                                                                                                  | `123456789`                                                                               |
 | `IS_TESTNET`                              | `bool` | Set to `True` for TON testnet or `False` for mainnet                                                                                                                                                                          | `False`                                                                                   |
 | `MANIFEST_URL`                            | `str`  | URL of the bot's manifest file                                                                                                                                                                                                | `https://github.com/nessshon/token-access-control-bot/blob/main/tonconnect-manifest.json` |
-| `TONAPI_KEY`                              | `str`  | API key for TONAPI, get it on [tonconsole.com](https://tonconsole.com)                                                                                                                                                        | `AE33E...3FYQ`                                                                            |
-| `TONAPI_TONCONNECT_KEY`                   | `str`  | API key for TON Connect (optional), get it by contacting [@subden](https://t.me/subden)                                                                                                                                       | `587d4...5a71`                                                                            |
-| `SCHEDULER_CHECK_CHAT_MEMBERS_INTERVAL`   | `int`  | Interval (minutes) for checking chat members (1-5 minutes would be acceptable)                                                                                                                                                | `587d4...5a71`                                                                            |
+| `TONAPI_KEY`                              | `str`  | API key for TONAPI, obtain it from [tonconsole.com](https://tonconsole.com)                                                                                                                                                   | `AE33E...3FYQ`                                                                            |
+| `TONAPI_TONCONNECT_KEY`                   | `str`  | API key for TON Connect (optional), obtain it by contacting [@subden](https://t.me/subden)                                                                                                                                    | `587d4...5a71`                                                                            |
+| `SCHEDULER_CHECK_CHAT_MEMBERS_INTERVAL`   | `int`  | Interval (minutes) for checking chat members (1-5 minutes is acceptable)                                                                                                                                                      | `587d4...5a71`                                                                            |
 | `SCHEDULER_UPDATE_TOKEN_HOLDERS_INTERVAL` | `int`  | Interval (minutes) for updating token holders (adjust value by Jetton holders or NFT elements. Every 1000 tokens or holders equals 1-2 seconds. For instance, for collections with 30k or fewer elements, set the value to 1) | `587d4...5a71`                                                                            |
 | `REDIS_HOST`                              | `str`  | Hostname or IP address of the Redis server (set `redis` if you don't have your own Redis server)                                                                                                                              | `redis`                                                                                   |
 | `REDIS_PORT`                              | `int`  | Port number of the Redis server (set `6379` if you don't have your own Redis server)                                                                                                                                          | `6379`                                                                                    |
