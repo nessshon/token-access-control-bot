@@ -214,7 +214,7 @@ TEXT_MESSAGES = {
         ),
         "allow_access": (
             f"{hide_link('https:telegra.phfile6b03c59182d959cddeb02.jpg')}"
-            "🎉 <b>Congratulations!<b>\n\n"
+            "🎉 <b>Congratulations!</b>\n\n"
             "You have access to our private chats.\n\n"
             "<b>Click on the buttons</b> below and submit an application to join, "
             "I will approve them immediately!"
