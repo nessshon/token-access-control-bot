@@ -42,7 +42,7 @@ unique non-transferable identifiers for each participant.
 4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`).
    <blockquote>This key is necessary for the
    proper functioning of TON Connect on the backend under heavy user load. You can get the key by
-   contacting [@subden](https://t.me/subden)  via private message. Inform him about your project and the need for this
+   contacting <a href="https://t.me/subden" alt=''">@subden</a>  via private message. Inform him about your project and the need for this
    key.</blockquote>
 
 5. Clone the repository:
