@@ -213,7 +213,7 @@ TEXT_MESSAGES = {
             "Don't worry, you can <b>purchase tokens by clicking the buttons</b> below and try again."
         ),
         "allow_access": (
-            f"{hide_link('https://telegra.phfile6b03c59182d959cddeb02.jpg')}"
+            f"{hide_link('https://telegra.ph//file/6b03c59182d959cddeb02.jpg')}"
             "🎉 <b>Congratulations!</b>\n\n"
             "You have access to our private chats.\n\n"
             "<b>Click on the buttons</b> below and submit an application to join, "
