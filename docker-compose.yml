@@ -8,7 +8,6 @@ services:
     command: sh -c "cd /usr/src/app && python -m app"
     container_name: "token-access-control-bot"
     restart: unless-stopped
-    env_file: ./.env
     depends_on:
       - redis
     volumes:
