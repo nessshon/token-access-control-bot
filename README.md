@@ -7,7 +7,8 @@
 [![Redis](https://img.shields.io/badge/Redis-Yes?logo=redis&color=white)](https://redis.io/)
 [![Docker](https://img.shields.io/badge/Docker-blue?logo=docker&logoColor=white)](https://www.docker.com/)
 
-Access Control Bot is a specialized bot that utilizes NFT tokens and/or Jettons to manage access to your private
+TON Token Access Control Bot is a specialized bot that utilizes NFT tokens and/or Jettons to manage access to your
+private
 Telegram chats. This convenient solution allows you to control who has access to your groups and when, using tokens as
 unique non-transferable identifiers for each participant.
 
@@ -15,16 +16,22 @@ unique non-transferable identifiers for each participant.
 
 ## Features
 
-* **TON-Connect Integration:** For a secure and user-friendly experience.
+* **Token Access Control:** Allows access via NFT tokens and Jettons, with customizable token limits.
 
-* **Testnet and Mainnet Support:** Supports testnet and mainnet for flexible testing and deployment.
+* **Testnet and Mainnet Support:** Flexible testing and deployment on both networks.
 
-* **Multilingual Support:** Supports both Russian and English for user interaction.
+* **TON-Connect Integration:** Ensures a secure and user-friendly experience.
+
+* **User-Friendly Admin Panel:** Built-in panel for easy administration.
+
+* **Multilingual Support:** Supports Russian and English for user interaction.
+
+* **Newsletters to All Users:** Distributes newsletters to all users, including delayed scheduling.
 
 ## Usage
 
 <details>
-<summary><b>Preparation</b></summary>
+<summary><b>Preparation and installation</b></summary>
 
 1. Create a private group and/or channel.
 
@@ -32,71 +39,67 @@ unique non-transferable identifiers for each participant.
 
 3. Create an API key on [tonconsole.com](https://tonconsole.com) (later referred to as `TONAPI_KEY`).
 
-4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`). This key is necessary for the
+4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`).
+   <blockquote>This key is necessary for the
    proper functioning of TON Connect on the backend under heavy user load. You can get the key by
    contacting [@subden](https://t.me/subden)  via private message. Inform him about your project and the need for this
-   key.
+   key.</blockquote>
 
-5. If desired, customize the bot's texts in
-   the [texts](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py) file according to your
-   requirements.
-
-6. if desired, add your preferred language
-   to [SUPPORTED_LANGUAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4) and add the
-   corresponding codes to [TEXT_BUTTONS](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9)
-   and [TEXT_MESSAGES](https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54).
-
-7. Clone the repository:
+5. Clone the repository:
 
     ```bash
     git clone https://github.com/nessshon/token-access-control-bot.git
     ```
 
-8. Navigate to the bot directory:
+6. Navigate to the bot directory:
 
     ```bash
     cd token-access-control-bot
     ```
 
-9. Clone the environment variables file:
+7. Clone the environment variables file:
 
    ```bash
    cp .env.example .env
    ```
 
-10. Configure [environment variables](#environment-variables-reference) variables file:
+8. Configure [environment variables](#environment-variables-reference) variables file:
 
-    ```bash
-    nano .env
-    ```
+   ```bash
+   nano .env
+   ```
 
-11. Install Docker and Docker Compose:
+9. Install Docker and Docker Compose:
 
-    ```bash
-    sudo apt install docker.io && docker-compose -y
-    ```
+   ```bash
+   sudo apt install docker.io && docker-compose -y
+   ```
 
-12. Run the bot in a Docker container:
+10. Run the bot in a Docker container:
 
     ```bash
     docker-compose up --build
     ```
 
-13. Start the bot with the command `/start`, choose the language, and authenticate using TON Connect.
+11. Start the bot with the command `/start`, choose the language, and connect wallet.
 
-14. Access the admin panel with the command `/admin` and add the token.
+12. Access the admin panel with the command `/admin` and add the token.
 
-15. Add the bot to your private chat, ensuring you grant permissions to add administrators. After that, the bot will
+13. Add the bot to your private chat, ensuring you grant permissions to add administrators. After that, the bot will
     prompt you to add the chat to the database for monitoring.
 
-16. You're all set!
+14. You're all set!
+
+<blockquote>
+Customize the bot's texts in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py">texts</a> file according to your requirements. Additionally, if desired, add your preferred language to <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4">SUPPORTED_LANGUAGES</a> and insert the corresponding codes into <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9">TEXT_BUTTONS</a> and <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54">TEXT_MESSAGES</a>.
+</blockquote>
 
 </details>
 
 ## Environment Variables Reference
 
 <details>
-<summary>Click to expand</summary>
+<summary><b>Click to expand</b></summary>
 
 Here's a comprehensive reference guide for the environment variables used in the project:
 
