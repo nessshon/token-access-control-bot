@@ -175,8 +175,8 @@ TEXT_MESSAGES = {
         ),
         "admin_send_id": "<b>Введите ID администратора:</b>",
         "admin_send_id_error": "Недопустимый ID:\n{}",
-        "admin_send_id_error_not_found": "<b>Администратор не найден.</b> Сначала пользователь должен начать диалог с ботом.",
-        "admin_send_id_error_not_member": "<b>ID администратора должен быть числом.</b>",
+        "admin_send_id_error_not_found": "Администратор не найден. Сначала пользователь должен начать диалог с ботом.",
+        "admin_send_id_error_not_member": "ID администратора должен быть числом.",
         "confirm_item_add": "<b>Подтвердите</b> добавление {item} в {table}?",
         "item_added": "{item} добавлен в {table}!",
         "confirm_item_delete": "<b>Подтвердите</b> удаление {item} из {table}?",
@@ -213,7 +213,7 @@ TEXT_MESSAGES = {
             "Don't worry, you can <b>purchase tokens by clicking the buttons</b> below and try again."
         ),
         "allow_access": (
-            f"{hide_link('https:telegra.phfile6b03c59182d959cddeb02.jpg')}"
+            f"{hide_link('https://telegra.phfile6b03c59182d959cddeb02.jpg')}"
             "🎉 <b>Congratulations!</b>\n\n"
             "You have access to our private chats.\n\n"
             "<b>Click on the buttons</b> below and submit an application to join, "
@@ -308,8 +308,8 @@ TEXT_MESSAGES = {
         ),
         "admin_send_id": "<b>Enter Administrator ID:</b>",
         "admin_send_id_error": "Invalid ID:\n{}",
-        "admin_send_id_error_not_found": "<b>Administrator not found.</b> First, the user needs to start a conversation with the bot.",
-        "admin_send_id_error_not_member": "<b>Administrator ID must be a number.</b>",
+        "admin_send_id_error_not_found": "Administrator not found. First, the user needs to start a conversation with the bot.",
+        "admin_send_id_error_not_member": "Administrator ID must be a number.",
         "confirm_item_add": "<b>Confirm</b> adding {item} to {table}?",
         "item_added": "{item} added to {table}!",
         "confirm_item_delete": "<b>Confirm</b> deleting {item} from {table}?",
