@@ -18,7 +18,7 @@ async def update_token_holders() -> None:
         if token.type == TokenDB.Type.NFTCollection:
             request = await tonapi.nft.get_all_items_by_collection_address(account_id=token.address)
             for nft in request.nft_items:
-                if nft.owner.address in holders:
+                if nft.owner.address.to_raw() in holders:
                     holders[nft.owner.address.to_raw()] += 1
                 else:
                     holders[nft.owner.address.to_raw()] = 1
