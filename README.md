@@ -63,7 +63,7 @@ unique non-transferable identifiers for each participant.
    cp .env.example .env
    ```
 
-8. Configure [environment variables](#environment-variables-reference) variables file:
+8. Configure [environment variables](#environment-variables-reference) file:
 
    ```bash
    nano .env
@@ -72,7 +72,7 @@ unique non-transferable identifiers for each participant.
 9. Install Docker and Docker Compose:
 
    ```bash
-   sudo apt install docker.io && docker-compose -y
+   sudo apt install docker.io && apt install docker-compose -y
    ```
 
 10. Run the bot in a Docker container:
