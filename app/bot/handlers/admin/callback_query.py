@@ -206,7 +206,7 @@ async def token_confirm_add_callback_query(call: CallbackQuery, manager: Manager
         token_type = state_data.get("token_type")
         if token_type == TokenDB.Type.JettonMaster:
             token = JettonInfo(**state_data.get("token"))
-            token_name = f"{token.metadata.name} [{token.metadata.symbol}]"
+            token_name = f"{token.metadata.name} ${token.metadata.symbol}"
         else:
             token = NftCollection(**state_data.get("token"))
             token_name = token.metadata.get("name", "Unknown Collection")
