@@ -74,13 +74,7 @@ async def main_menu_callback_query(call: CallbackQuery, manager: Manager, atc_ma
             wallet_address=None,
         )
         await atc_manager.disconnect_wallet()
-        await atc_manager.connect_wallet(
-            callbacks=ConnectWalletCallbacks(
-                before_callback=Window.select_language,
-                after_callback=Window.main_menu,
-            ),
-            check_proof=True,
-        )
+        await Window.select_language(manager)
 
     elif call.data == "change_language":
         await Window.change_language(manager)
