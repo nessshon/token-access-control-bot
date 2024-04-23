@@ -1,4 +1,5 @@
 from aiogram import Router, F
+from aiogram.filters import StateFilter
 from aiogram.types import CallbackQuery
 from aiogram_newsletter.manager import ANManager
 from aiogram_tonconnect import ATCManager
@@ -16,7 +17,7 @@ router = Router()
 router.callback_query.filter(F.message.chat.type == "private")
 
 
-@router.callback_query(F.data == "main")
+@router.callback_query(StateFilter("*"), F.data == "main")
 async def main_callback_query(call: CallbackQuery, manager: Manager) -> None:
     await Window.main_menu(manager)
     await call.answer()
