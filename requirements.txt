@@ -1,5 +1,5 @@
 aiogram>=3.4.1
-aiogram-tonconnect>=0.13.2
+aiogram-tonconnect>=0.13.5
 aiogram-newsletter>=0.0.10
 aiofiles~=23.2.1
 aiosqlite~=0.20.0
