@@ -19,7 +19,10 @@ router.callback_query.filter(F.message.chat.type == "private")
 
 @router.callback_query(StateFilter("*"), F.data == "main")
 async def main_callback_query(call: CallbackQuery, manager: Manager) -> None:
-    await Window.main_menu(manager)
+    if not manager.user_db.wallet_address:
+        await Window.select_language(manager)
+    else:
+        await Window.main_menu(manager)
     await call.answer()
 
 
