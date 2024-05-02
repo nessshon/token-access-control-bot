@@ -1,3 +1,4 @@
+import asyncio
 from contextlib import suppress
 from typing import Sequence
 
@@ -28,4 +29,6 @@ async def user_is_holder(user: UserDB, tokens: Sequence[TokenDB]):
 async def kick_member(bot: Bot, member: MemberDB) -> None:
     with suppress(TelegramBadRequest):
         await bot.ban_chat_member(member.chat_id, member.user_id)
+        await asyncio.sleep(.1)
         await bot.unban_chat_member(member.chat_id, member.user_id)
+        await asyncio.sleep(.1)
