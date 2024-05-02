@@ -37,4 +37,5 @@ async def update_token_holders() -> None:
             await send_message(bot, config.bot.DEV_ID, text=f"{e.__class__.__name__}: {e}")
             continue
 
-        await TokenDB.update(sessionmaker, primary_key=token.id, holders=holders)
+        if holders:
+            await TokenDB.update(sessionmaker, primary_key=token.id, holders=holders)
