@@ -51,4 +51,7 @@ class TokenDB(AbstractModel):
 
     @property
     def min_amount_str(self) -> str:
-        return "{:.15f}".format(self.min_amount).rstrip('0').rstrip('.')
+        from decimal import Decimal
+
+        amount = Decimal(str(self.min_amount))
+        return "{:,.15f}".format(amount).rstrip('0').rstrip('.')
