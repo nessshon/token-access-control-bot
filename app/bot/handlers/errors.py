@@ -44,7 +44,7 @@ async def telegram_api_error(event: ErrorEvent, bot: Bot, config: Config) -> Non
     document = BufferedInputFile(document_data, filename=document_name)
 
     text = f"{hbold(exc_name)}:\n{hcode(exc_text[:1024 - len(exc_name) - 2])}"
-    await send_message(bot, config.bot.ADMIN_ID, text, document)
+    await send_message(bot, config.bot.DEV_ID, text, document)
 
     # Send update_json in chunks
     for text in [update_json[i:i + 4096] for i in range(0, len(update_json), 4096)]:
