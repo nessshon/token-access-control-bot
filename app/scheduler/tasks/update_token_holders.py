@@ -31,7 +31,7 @@ async def update_token_holders() -> None:
             else:
                 request = await tonapi.jettons.get_all_holders(account_id=token.address)
                 for address in request.addresses:
-                    holders[address.owner.address.to_raw()] = nano_to_amount(int(address.balance))
+                    holders[address.owner.address.to_raw()] = nano_to_amount(int(address.balance), 9)
 
         except Exception as e:
             await send_message(bot, config.bot.DEV_ID, text=f"{e.__class__.__name__}: {e}")
