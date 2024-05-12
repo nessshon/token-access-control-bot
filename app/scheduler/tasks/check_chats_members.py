@@ -32,7 +32,7 @@ async def process_and_kick_members(
     members = await MemberDB.all_by_filter(
         sessionmaker,
         join_tables=[MemberDB.user],
-        chat_id=chat.id
+        chat_id=chat.id,
     )
 
     for member in members:
