@@ -1,4 +1,8 @@
+import asyncio
+
 from aiogram.utils.markdown import hlink
+
+from app.config import Config
 
 
 class BaseUrl:
@@ -10,7 +14,7 @@ class BaseUrl:
 
     @property
     def link(self) -> str:
-        return f"{self.base_url}/{self.address}"
+        return f"{self.base_url}{self.address}"
 
     @property
     def hlink(self) -> str:
@@ -26,21 +30,30 @@ class BaseUrl:
 
 
 class TonviewerUrl(BaseUrl):
-    BASE_URL = "https://tonviewer.com"
+    BASE_URL = "https://tonviewer.com/"
 
     def __init__(self, address: str, name: str = None) -> None:
         super().__init__(self.BASE_URL, address, name)
 
 
-class GetgemsUrl(BaseUrl):
-    BASE_URL = "https://getgems.io/collection"
+class NFTBuyUrl(BaseUrl):
+    BASE_URL = "https://gegtems.com/collection/"
 
     def __init__(self, address: str, name: str = None) -> None:
         super().__init__(self.BASE_URL, address, name)
 
 
-class DeDustUrl(BaseUrl):
-    BASE_URL = "https://dedust.io/swap/TON"
+class JettonBuyUrl(BaseUrl):
+    DEDUST_BASE_URL = "https://dedust.io/swap/TON/"
+    STONFI_BASE_URL = "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt="
 
     def __init__(self, address: str, name: str = None) -> None:
-        super().__init__(self.BASE_URL, address, name)
+        loop = asyncio.get_running_loop()
+        config: Config = getattr(loop, "config")
+
+        if config.DEX_NAME == "dedust":
+            super().__init__(self.DEDUST_BASE_URL, address, name)
+        elif config.DEX_NAME == "stonfi":
+            super().__init__(self.STONFI_BASE_URL, address, name)
+        else:
+            raise ValueError(f"Unsupported dex: {config.DEX_NAME}")

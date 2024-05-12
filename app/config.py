@@ -68,6 +68,7 @@ class Config:
     tonapi: TONAPIConfig
     scheduler: SchedulerConfig
 
+    DEX_NAME: str
     IS_TESTNET: bool
     MANIFEST_URL: str
 
@@ -105,6 +106,7 @@ def load_config() -> Config:
             UPDATE_TOKEN_HOLDERS_INTERVAL=env.int("SCHEDULER_UPDATE_TOKEN_HOLDERS_INTERVAL"),
         ),
 
+        DEX_NAME=env.str("DEX_NAME"),
         IS_TESTNET=env.bool("IS_TESTNET"),
         MANIFEST_URL=env.str("MANIFEST_URL"),
     )
