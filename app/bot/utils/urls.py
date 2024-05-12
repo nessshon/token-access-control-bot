@@ -37,7 +37,7 @@ class TonviewerUrl(BaseUrl):
 
 
 class NFTBuyUrl(BaseUrl):
-    BASE_URL = "https://gegtems.com/collection/"
+    BASE_URL = "https://getgems.io/collection/"
 
     def __init__(self, address: str, name: str = None) -> None:
         super().__init__(self.BASE_URL, address, name)
