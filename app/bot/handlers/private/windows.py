@@ -4,7 +4,7 @@ from aiogram_tonconnect.tonconnect.models import AccountWallet
 from app.bot.manager import Manager, SendMode
 from app.bot.utils import keyboards
 from app.bot.utils.states import UserState
-from app.bot.utils.urls import GetgemsUrl, DeDustUrl, TonviewerUrl
+from app.bot.utils.urls import NFTBuyUrl, JettonBuyUrl, TonviewerUrl
 from app.db.models import UserDB, ChatDB, TokenDB
 
 
@@ -51,9 +51,9 @@ class Window:
             chats="\n".join([f"• {hcode(chat.name)}" for chat in chats]),
             tokens="\n".join(
                 [
-                    f"• {GetgemsUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
+                    f"• {NFTBuyUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
                     if token.type == TokenDB.Type.NFTCollection else
-                    f"• {DeDustUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
+                    f"• {JettonBuyUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
                     for token in tokens
                 ]
             )
