@@ -6,7 +6,7 @@ from aiogram.utils.keyboard import InlineKeyboardBuilder as Builder
 from aiogram_tonconnect.utils.keyboards import InlineKeyboard as AiogramTonconnectInlineKeyboardBase
 
 from .texts import TextButton
-from .urls import GetgemsUrl, DeDustUrl
+from .urls import NFTBuyUrl, JettonBuyUrl
 from ...db.models import ChatDB, TokenDB
 from ...texts import TEXT_BUTTONS, SUPPORTED_LANGUAGES
 
@@ -67,10 +67,12 @@ def deny_access(text_button: TextButton, tokens: Sequence[TokenDB]) -> Markup:
     inline_keyboard = []
     for token in tokens:
         if token.type == TokenDB.Type.NFTCollection:
-            url = GetgemsUrl(token.address).link
+            url = NFTBuyUrl(token.address).link
+            text = f"🖼 {token.name}"
         else:
-            url = DeDustUrl(token.address).link
-        inline_keyboard.append([Button(text=f"🏷️ {token.name}", url=url)])
+            url = JettonBuyUrl(token.address).link
+            text = f"🪙 {token.name}"
+        inline_keyboard.append([Button(text=text, url=url)])
     inline_keyboard.append([Button(text=text_button.get("main"), callback_data="main")])
 
     return Markup(inline_keyboard=inline_keyboard)
