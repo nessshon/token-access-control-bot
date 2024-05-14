@@ -77,6 +77,18 @@ unique non-transferable identifiers for each participant.
     ```bash
     docker-compose up --build
     ```
+    If you encounter the error:
+    ```log
+    Error while fetching server API version: HTTPConnection.request() got an unexpected keyword argument 'chunked'
+    ```
+    Install the latest version of docker-compose using the following command:
+    ```bash
+    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose  && sudo chmod +x /usr/bin/docker-compose
+    ```
+    After the bot is up and running smoothly, you can stop the containers by pressing **Ctrl + C** or **Ctrl + Shift + C** in the terminal. Then, to restart them in the background, use:
+    ```bash
+    docker-compose up -d
+    ```
 
 11. Start the bot with the command `/start`, choose the language, and connect wallet.
 
