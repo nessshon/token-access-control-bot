@@ -7,6 +7,6 @@ apscheduler==3.10.0
 cachetools>=5.3.2
 environs==10.3.0
 pydantic>=2.5.0
-pytonapi==0.2.9
+pytonapi==0.3.0
 redis>=5.0.2
 sqlalchemy==2.0.27
