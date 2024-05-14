@@ -1,4 +1,5 @@
 from aiogram.utils.markdown import hcode
+from aiogram_tonconnect import ATCManager
 from aiogram_tonconnect.tonconnect.models import AccountWallet
 
 from app.bot.manager import Manager, SendMode
@@ -31,17 +32,20 @@ class Window:
             manager: Manager,
             send_mode: SendMode = SendMode.EDIT,
             account_wallet: AccountWallet = None,
-            **_
+            **data,
     ) -> None:
         wallet_address = manager.user_db.wallet_address
 
         if account_wallet:
+            await manager.send_loader_message()
             await UserDB.update(
                 manager.sessionmaker,
                 primary_key=manager.user_db.id,
                 wallet_address=account_wallet.address.to_userfriendly(),
             )
             wallet_address = account_wallet.address.to_userfriendly()
+            atc_manager: ATCManager = data.get("atc_manager")
+            await atc_manager.disconnect_wallet()
 
         chats = await ChatDB.all(manager.sessionmaker)
         tokens = await TokenDB.all(manager.sessionmaker)
