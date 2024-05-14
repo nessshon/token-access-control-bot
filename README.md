@@ -39,11 +39,8 @@ unique non-transferable identifiers for each participant.
 
 3. Create an API key on [tonconsole.com](https://tonconsole.com) (later referred to as `TONAPI_KEY`).
 
-4. Obtain a key for TON Connect (Optional, later referred to as `TONAPI_TONCONNECT_KEY`).
-   <blockquote>This key is necessary for the
-   proper functioning of TON Connect on the backend under heavy user load. You can get the key by
-   contacting <a href="https://t.me/subden" alt=''">@subden</a>  via private message. Inform him about your project and the need for this
-   key.</blockquote>
+4. Obtain a key for TON Connect (**Optional**, later referred to as `TONAPI_TONCONNECT_KEY`).
+   <blockquote>This key is necessary for the correct functioning of TON Connect on the backend under heavy user load. If you are expecting a high volume of traffic, more than one user per second, contact <a href="https://t.me/subden" alt=''">@subden</a> via private message to receive the key. Tell him about your project and the need for this key. If you don't expect much traffic, you can skip this step and use the bot without a key.</blockquote>
 
 5. Clone the repository:
 
@@ -112,7 +109,7 @@ Here's a comprehensive reference guide for the environment variables used in the
 | `IS_TESTNET`                              | `bool` | Set to `True` for TON testnet or `False` for mainnet                                                                                                                                                                          | `False`                                                                                             |
 | `MANIFEST_URL`                            | `str`  | URL of the bot's manifest file                                                                                                                                                                                                | `https://raw.githubusercontent.com/nessshon/token-access-control-bot/main/tonconnect-manifest.json` |
 | `TONAPI_KEY`                              | `str`  | API key for TONAPI, obtain it from [tonconsole.com](https://tonconsole.com)                                                                                                                                                   | `AE33E...3FYQ`                                                                                      |
-| `TONAPI_TONCONNECT_KEY`                   | `str`  | API key for TON Connect (optional), obtain it by contacting [@subden](https://t.me/subden)                                                                                                                                    | `587d4...5a71`                                                                                      |
+| `TONAPI_TONCONNECT_KEY`                   | `str`  | API key for TON Connect (**optional**), obtain it by contacting [@subden](https://t.me/subden)                                                                                                                                | `587d4...5a71` or leave empty                                                                       |
 | `SCHEDULER_CHECK_CHAT_MEMBERS_INTERVAL`   | `int`  | Interval (minutes) for checking chat members (5 minutes is acceptable)                                                                                                                                                        | `5`                                                                                                 |
 | `SCHEDULER_UPDATE_TOKEN_HOLDERS_INTERVAL` | `int`  | Interval (minutes) for updating token holders (adjust value by Jetton holders or NFT elements. Every 1000 tokens or holders equals 1-2 seconds. For instance, for collections with 30k or fewer elements, set the value to 1) | `5`                                                                                                 |
 | `REDIS_HOST`                              | `str`  | Hostname or IP address of the Redis server (set `redis` if you don't have your own Redis server)                                                                                                                              | `redis`                                                                                             |
