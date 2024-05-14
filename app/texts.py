@@ -90,7 +90,7 @@ TEXT_MESSAGES = {
         ),
 
         "connect_wallet": (
-            f"<a href='https://ton.org/wallets?filters[wallet_features][slug][$in]=dapp-auth&pagination[limit]=-1'>Установить кошелек</a>\n\n"
+            f"<a href='https://ton.org/ru/wallets?locale=ru&filters[wallet_features][slug][$in]=dapp-auth&pagination[limit]=-1'>Установить кошелек</a>\n\n"
             "<b>Подключи свой {wallet_name}!</b>\n\n"
             "Отсканируй с помощью мобильного кошелька:"
         ),
@@ -221,7 +221,7 @@ TEXT_MESSAGES = {
         ),
 
         "connect_wallet": (
-            f"<a href='https://ton.org/wallets?filters[wallet_features][slug][$in]=dapp-auth&pagination[limit]=-1'>Get a Wallet</a>\n\n"
+            f"<a href='https://ton.org/wallets?locale=en&filters[wallet_features][slug][$in]=dapp-auth&pagination[limit]=-1'>Get a Wallet</a>\n\n"
             "<b>Connect your {wallet_name}!</b>\n\n"
             "Scan with your mobile app wallet:"
         ),
