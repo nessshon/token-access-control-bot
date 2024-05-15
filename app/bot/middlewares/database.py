@@ -34,7 +34,6 @@ class DBSessionMiddleware(BaseMiddleware):
         :param event: The Telegram event.
         :param data: Additional data.
         """
-
         user: User = data.get("event_from_user")
         if user is not None:
             user_db = await UserDB.create_or_update(
