@@ -1,7 +1,7 @@
 from typing import Callable, Dict, Any, Awaitable
 
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject, Chat
+from aiogram.types import TelegramObject, Chat, User
 
 from app.bot.manager import Manager
 
@@ -24,8 +24,8 @@ class ManagerMiddleware(BaseMiddleware):
         :param event: The Telegram event.
         :param data: Additional data.
         """
-        chat: Chat = data.get("event_chat")
-        if chat.type == "private":
+        user: User = data.get("event_from_user")
+        if user and not user.is_bot:
             # Create a new manager object
             manager = Manager(data)
             # Pass the config data to the handler function
