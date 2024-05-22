@@ -1,5 +1,6 @@
 from aiogram.types import User
 from aiogram.utils.markdown import hcode, hbold
+from pytonapi.exceptions import TONAPIError
 from pytonapi.schema.accounts import Account
 from pytonapi.schema.jettons import JettonInfo
 from pytonapi.schema.nft import NftCollection
@@ -174,9 +175,13 @@ class AdminWindow:
         token_type = state_data.get("token_type")
         if token_type == TokenDB.Type.JettonMaster:
             token = JettonInfo(**state_data.get("token"))
+            if not token.metadata:
+                raise TONAPIError("TONAPI Error: Token metadata not indexed.")
             token_name = f"{token.metadata.name} [{token.metadata.symbol}]"
         else:
             token = NftCollection(**state_data.get("token"))
+            if not token.metadata:
+                raise TONAPIError("TONAPI Error: Token metadata not indexed.")
             token_name = token.metadata.get("name", "Unknown Collection")
 
         tonviewer_url = TonviewerUrl(account.address.to_userfriendly(True), token_name)
