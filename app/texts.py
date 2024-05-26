@@ -88,6 +88,9 @@ TEXT_MESSAGES = {
             "Тебе открыт доступ к нашим приватным чатам.\n\n"
             "<b>Переходи по кнопкам</b> ниже и подавай заявку на вступление, я сразу же их одобрю!"
         ),
+        "user_kicked": (
+            "Пользователь {user} [{wallet}] был исключен из чата!"
+        ),
 
         "connect_wallet": (
             f"<a href='https://ton.org/ru/wallets?locale=ru&filters[wallet_features][slug][$in]=dapp-auth&pagination[limit]=-1'>Установить кошелек</a>\n\n"
@@ -218,6 +221,9 @@ TEXT_MESSAGES = {
             "You have access to our private chats.\n\n"
             "<b>Click on the buttons</b> below and submit an application to join, "
             "I will approve them immediately!"
+        ),
+        "user_kicked": (
+            "User {user} [{wallet}] was kicked from chat!"
         ),
 
         "connect_wallet": (

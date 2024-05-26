@@ -1,14 +1,19 @@
 import asyncio
 import logging
+from contextlib import suppress
 from typing import Sequence
 
 from aiogram import Bot
+from aiogram.exceptions import TelegramBadRequest
+from aiogram.utils.markdown import hlink
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.bot.handlers.private.windows import Window
 from app.bot.manager import Manager, SendMode
 from app.bot.utils import user_is_holder, kick_member
-from app.db.models import ChatDB, TokenDB, MemberDB
+from app.bot.utils.texts import TextMessage
+from app.bot.utils.urls import TonviewerUrl
+from app.db.models import ChatDB, TokenDB, MemberDB, UserDB
 
 
 async def check_chats_members() -> None:
@@ -41,9 +46,33 @@ async def process_and_kick_members(
 
         try:
             await kick_member(bot, member)
+            await send_notification_to_chat(bot, chat, member.user)
             await MemberDB.delete(sessionmaker, primary_key=member.id)
 
             manager = await Manager.from_user(member.user_id)
             await Window.deny_access(manager, send_mode=SendMode.SEND)
         except Exception as e:
             logging.error(e)
+
+
+async def send_notification_to_chat(bot: Bot, chat: ChatDB, user: UserDB) -> None:
+    user_link = hlink(
+        title=user.full_name,
+        url=(
+            f"https://t.me/{user.username}"
+            if user.username else
+            f"tg://user?id={user.id}"
+        )
+    )
+    wallet_link = (
+        TonviewerUrl(user.wallet_address).hlink_short
+        if user.wallet_address else
+        "N/A"
+    )
+
+    text = TextMessage(user.language_code or "en").get("user_kicked").format(
+        user=user_link, wallet=wallet_link,
+    )
+    with suppress(TelegramBadRequest):
+        await bot.send_message(chat_id=chat.id, text=text)
+        await asyncio.sleep(.2)
