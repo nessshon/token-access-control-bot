@@ -59,7 +59,7 @@ async def send_notification_to_chat(bot: Bot, chat: ChatDB, user: UserDB) -> Non
     user_link = hlink(
         title=user.full_name,
         url=(
-            f"https://t.me/{user.username}"
+            f"https://t.me/{user.username[1:]}"
             if user.username else
             f"tg://user?id={user.id}"
         )
