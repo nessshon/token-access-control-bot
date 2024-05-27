@@ -17,6 +17,11 @@ async def query_too_old(_: ErrorEvent) -> None:
     """Handles errors containing 'query is too old'."""
 
 
+@router.errors(F.exception.message.contains("bot was blocked by the user"))
+async def bot_was_blocked_by_user(_: ErrorEvent) -> None:
+    """Handles errors containing 'bot was blocked by the user'."""
+
+
 @router.errors()
 async def telegram_api_error(event: ErrorEvent, bot: Bot, config: Config) -> None:
     """
