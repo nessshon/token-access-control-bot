@@ -41,6 +41,10 @@ async def process_and_kick_members(
     )
 
     for member in members:
+        if is_any_empty_token_holders(tokens):
+            logging.warning(f"Skipping check members for {chat.name} because of empty token holders!")
+            break
+
         if await user_is_holder(member.user, tokens):
             continue
 
@@ -53,6 +57,14 @@ async def process_and_kick_members(
             await Window.deny_access(manager, send_mode=SendMode.SEND)
         except Exception as e:
             logging.error(e)
+
+
+def is_any_empty_token_holders(tokens: Sequence[TokenDB]) -> bool:
+    for token in tokens:
+        if not token.holders:
+            logging.warning(f"Found empty token holders on {token.name} [{token.address}]!")
+            return True
+    return False
 
 
 async def send_notification_to_chat(bot: Bot, chat: ChatDB, user: UserDB) -> None:
