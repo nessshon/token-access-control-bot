@@ -30,6 +30,7 @@ def setup_logger(log_level=logging.INFO, logs_dir=".logs") -> None:
     )
 
     # Set the log level for specific loggers
+    _set_logger_level("httpx", logging.CRITICAL)
     _set_logger_level("aiogram.event", logging.CRITICAL)
     _set_logger_level("apscheduler.scheduler", logging.CRITICAL)
     _set_logger_level("apscheduler.executors.default", logging.CRITICAL)
