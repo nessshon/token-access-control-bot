@@ -33,6 +33,8 @@ unique non-transferable identifiers for each participant.
 <details>
 <summary><b>Preparation and installation</b></summary>
 
+You need your own server or you can rent one from a hosting provider. For this, check out the [Recommended Hosting Provider](#recommended-hosting-provider) section below.
+
 1. Create a private group and/or channel.
 
 2. Create a bot via [@BotFather](https://t.me/BotFather) and save the `TOKEN` (later referred to as `BOT_TOKEN`).
@@ -130,16 +132,29 @@ Here's a comprehensive reference guide for the environment variables used in the
 
 </details>
 
-## Contribution
+## Recommended Hosting Provider
 
-We welcome your contributions! If you have ideas for improvement or have identified a bug, please create an issue or
-submit a pull request.
+I recommend using [aeza.net](https://aeza.net/?ref=362599) for your hosting needs. Here's why:
+
+- **24/7 Support**: Quick and effective support via chat or phone.
+- **Promo Plan for €1**: Great for testing Telegram bots and small websites.
+- **Easy Backups**: Secure backups on independent servers.
+- **Hourly Billing**: Rent a server by the hour for testing or demos.
+- **Anti-DDoS Protection**: Reliable and secure internet connection for your business.
+- **Multiple Payment Methods**: Supports various payment methods, including cryptocurrencies like TON.
+
+Learn more at [aeza.net](https://aeza.net/?ref=362599).
 
 ## Donations
 
 **TON** - `EQC-3ilVr-W0Uc3pLrGJElwSaFxvhXXfkiQA3EwdVBHNNess`
 
 **USDT** (TRC-20) - `TJjADKFT2i7jqNJAxkgeRm5o9uarcoLUeR`
+
+## Contribution
+
+We welcome your contributions! If you have ideas for improvement or have identified a bug, please create an issue or
+submit a pull request.
 
 ## Support
 
