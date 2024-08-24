@@ -32,6 +32,7 @@ def bot_middlewares_register(dp: Dispatcher, **kwargs) -> None:
             inline_keyboard=AiogramTonconnectInlineKeyboard,
             qrcode_provider=QRUrlProvider(),
             tonapi_token=config.tonapi.TONCONNECT_KEY,
+            exclude_wallets=config.EXCLUDE_WALLETS,
         )
     )
 
