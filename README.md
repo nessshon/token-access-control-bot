@@ -102,7 +102,7 @@ You need your own server or you can rent one from a hosting provider. For this, 
 14. You're all set!
 
 <blockquote>
-Customize the bot's texts in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py">texts</a> file according to your requirements. Additionally, if desired, add your preferred language to <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4">SUPPORTED_LANGUAGES</a> and insert the corresponding codes into <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9">TEXT_BUTTONS</a> and <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54">TEXT_MESSAGES</a>.
+Customize the bot's texts in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py">texts</a> file and pictures in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts_pics.py">texts_pics</a> file according to your requirements. Additionally, if desired, add your preferred language to <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4">SUPPORTED_LANGUAGES</a> and insert the corresponding codes into <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9">TEXT_BUTTONS</a> and <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54">TEXT_MESSAGES</a>.
 </blockquote>
 
 </details>
