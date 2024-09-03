@@ -1,6 +1,6 @@
 from aiogram.utils.markdown import hide_link
 
-from texts_pics import pictures
+from .texts_pics import pictures
 
 # Add other languages and their corresponding codes as needed.
 SUPPORTED_LANGUAGES = {
