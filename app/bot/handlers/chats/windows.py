@@ -1,5 +1,5 @@
 from aiogram.types import Message, TelegramObject
-from aiogram.utils.markdown import hcode, hbold
+from aiogram.utils.markdown import hcode, hbold, hlink
 from pytonapi.utils import userfriendly_to_raw
 
 from app.bot.manager import Manager, SendMode
@@ -57,7 +57,8 @@ class ChatWindow:
         users = await UserDB.all(manager.sessionmaker)
 
         top_holders = {
-            user.full_name: token.holders.get(userfriendly_to_raw(user.wallet_address), 0)
+            hlink(user.full_name, f"tg://user?id={user.id}"):
+                token.holders.get(userfriendly_to_raw(user.wallet_address), 0)
             for user in users if
             user.wallet_address and token.holders.get(userfriendly_to_raw(user.wallet_address), 0) > 0
         }
