@@ -1,6 +1,6 @@
 from aiogram.types import Message, TelegramObject
 from aiogram.utils.markdown import hcode, hbold
-from pytonapi.utils import userfriendly_to_raw, nano_to_amount
+from pytonapi.utils import userfriendly_to_raw
 
 from app.bot.manager import Manager, SendMode
 from app.bot.utils import amount_str, keyboards
@@ -26,7 +26,6 @@ class ChatWindow:
 
         balances = [
             f"{format_token_name(token)}: {hcode(amount_str(balance))}"
-            if token.type == TokenDB.Type.NFTCollection else f"{format_token_name(token)}: {hcode(nano_to_amount(balance))}"
             for token in tokens
             if (balance := token.holders.get(userfriendly_to_raw(user.wallet_address), 0)) > 0
         ]
@@ -59,8 +58,6 @@ class ChatWindow:
 
         top_holders = {
             user.full_name: token.holders.get(userfriendly_to_raw(user.wallet_address), 0)
-            if token.type == TokenDB.Type.NFTCollection else
-            nano_to_amount(token.holders.get(userfriendly_to_raw(user.wallet_address), 0))
             for user in users if
             user.wallet_address and token.holders.get(userfriendly_to_raw(user.wallet_address), 0) > 0
         }
