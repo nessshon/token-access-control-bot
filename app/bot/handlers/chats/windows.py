@@ -69,7 +69,7 @@ class ChatWindow:
         paginated_holders = sorted_holders[start_index:start_index + items_per_page]
 
         top_holders_text = "\n".join(
-            f"{rank + start_index + 1}. {hbold(full_name)}: {hcode(amount_str(balance))}"
+            f"{rank + start_index + 1}. {full_name}: {hcode(amount_str(balance))}"
             for rank, (full_name, balance) in enumerate(paginated_holders)
         )
 
