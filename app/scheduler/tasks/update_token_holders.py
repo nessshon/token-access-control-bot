@@ -15,7 +15,11 @@ from app.config import Config
 from app.db.models import TokenDB
 
 
-async def get_all_nft_items(config: Config, tonapi: AsyncTonapi, account_id: str) -> NftItems:
+async def get_all_nft_items(
+        config: Config,
+        tonapi: AsyncTonapi,
+        account_id: str,
+) -> NftItems:
     nft_items: List[NftItem] = []
     interval = 1 / config.tonapi.RPS
     offset, limit = 0, 1000
@@ -34,7 +38,12 @@ async def get_all_nft_items(config: Config, tonapi: AsyncTonapi, account_id: str
     return NftItems(nft_items=nft_items)
 
 
-async def get_all_jetton_holders(config: Config, tonapi: AsyncTonapi, account_id: str) -> JettonHolders:
+async def get_all_jetton_holders(
+        config: Config,
+        tonapi: AsyncTonapi,
+        account_id: str,
+        min_amount: int,
+) -> JettonHolders:
     jetton_holders: List[JettonHolder] = []
     interval = 1 / config.tonapi.RPS
     offset, limit = 0, 1000
@@ -47,10 +56,11 @@ async def get_all_jetton_holders(config: Config, tonapi: AsyncTonapi, account_id
         offset += limit
 
         await asyncio.sleep(interval)
-        if len(result.addresses) == 0:
+        last_balance = nano_to_amount(int(jetton_holders[-1].balance))
+        if last_balance < min_amount:
             break
 
-    return JettonHolders(addresses=jetton_holders, total=result.total)
+    return JettonHolders(addresses=jetton_holders, total=last_balance)
 
 
 async def update_token_holders() -> None:
@@ -78,12 +88,13 @@ async def update_token_holders() -> None:
                     found_holders += 1
 
             else:
-                result = await get_all_jetton_holders(config, tonapi, token.address)
-                total_holders, found_holders = result.total, 0
+                result = await get_all_jetton_holders(config, tonapi, token.address, token.min_amount)
+                total_holders = found_holders = result.total
+                if total_holders > token.min_amount:
+                    found_holders = -1
 
                 for holder in result.addresses:
                     holders[holder.owner.address.to_raw()] = nano_to_amount(int(holder.balance), 9)
-                    found_holders += 1
 
         except TONAPIInternalServerError as e:
             logging.error(f"{e.__class__.__name__}: {e}")
