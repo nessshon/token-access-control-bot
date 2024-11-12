@@ -46,6 +46,7 @@ class NFTBuyUrl(BaseUrl):
 class JettonBuyUrl(BaseUrl):
     DEDUST_BASE_URL = "https://dedust.io/swap/TON/"
     STONFI_BASE_URL = "https://app.ston.fi/swap?chartVisible=false&ft=TON&tt="
+    SWAPCOFFEE_BASE_URL = "https://swap.coffee/dex?ft=TON&st="
 
     def __init__(self, address: str, name: str = None) -> None:
         loop = asyncio.get_running_loop()
@@ -55,5 +56,8 @@ class JettonBuyUrl(BaseUrl):
             super().__init__(self.DEDUST_BASE_URL, address, name)
         elif config.DEX_NAME == "stonfi":
             super().__init__(self.STONFI_BASE_URL, address, name)
+        elif config.DEX_NAME == "swapcoffee":
+            super().__init__(self.SWAPCOFFEE_BASE_URL, address, name)
+
         else:
             raise ValueError(f"Unsupported dex: {config.DEX_NAME}")
