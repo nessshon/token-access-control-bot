@@ -3,7 +3,7 @@ from typing import List
 
 from aiogram import Bot
 from aiogram.exceptions import TelegramBadRequest
-from aiogram.types import BotCommandScopeAllPrivateChats, BotCommand, BotCommandScopeChat
+from aiogram.types import BotCommandScopeAllPrivateChats, BotCommand, BotCommandScopeChat, BotCommandScopeAllGroupChats
 
 
 async def bot_commands_setup(bot: Bot) -> None:
@@ -33,6 +33,26 @@ async def bot_commands_setup(bot: Bot) -> None:
         language_code="ru"
     )
 
+    chat_commands = {
+        "ru": [
+            BotCommand(command="top", description="ТОП держателей"),
+            BotCommand(command="balance", description="Отобразить баланс"),
+        ],
+        "en": [
+            BotCommand(command="top", description="Top holders"),
+            BotCommand(command="balance", description="Display balance"),
+        ],
+    }
+    await bot.set_my_commands(
+        commands=chat_commands["ru"],
+        scope=BotCommandScopeAllGroupChats(),
+        language_code="ru"
+    )
+    await bot.set_my_commands(
+        commands=chat_commands["en"],
+        scope=BotCommandScopeAllGroupChats(),
+    )
+
 
 async def bot_commands_delete(bot: Bot) -> None:
     """
@@ -49,6 +69,14 @@ async def bot_commands_delete(bot: Bot) -> None:
     await bot.delete_my_commands(
         scope=BotCommandScopeAllPrivateChats(),
         language_code="ru",
+    )
+
+    await bot.delete_my_commands(
+        scope=BotCommandScopeAllGroupChats(),
+        language_code="ru"
+    )
+    await bot.delete_my_commands(
+        scope=BotCommandScopeAllGroupChats(),
     )
 
 

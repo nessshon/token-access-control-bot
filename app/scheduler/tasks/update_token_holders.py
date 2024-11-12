@@ -28,7 +28,7 @@ async def get_all_nft_items(config: Config, tonapi: AsyncTonapi, account_id: str
         offset += limit
 
         await asyncio.sleep(interval)
-        if len(result.nft_items) != limit:
+        if len(result.nft_items) == 0:
             break
 
     return NftItems(nft_items=nft_items)
@@ -47,7 +47,7 @@ async def get_all_jetton_holders(config: Config, tonapi: AsyncTonapi, account_id
         offset += limit
 
         await asyncio.sleep(interval)
-        if len(result.addresses) != limit:
+        if len(result.addresses) == 0:
             break
 
     return JettonHolders(addresses=jetton_holders, total=result.total)

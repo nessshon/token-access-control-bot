@@ -91,7 +91,31 @@ TEXT_MESSAGES = {
             "<b>Переходи по кнопкам</b> ниже и подавай заявку на вступление, я сразу же их одобрю!"
         ),
         "user_kicked": (
-            "Пользователь {user} [{wallet}] был исключен из чата!"
+            "👮‍♀️ Пользователь {user} [{wallet}] был исключен из чата!"
+        ),
+
+        "welcome_to_chat": (
+            f"{hide_link(pictures['Welcome to chat'])}"
+            "👋 <b>Добро пожаловать {user_full_name}!</b>\n\n"
+            "{balances}"
+        ),
+        "top_holders": (
+            f"{hide_link(pictures['TOP holders'])}"
+            f"🏆 <b>ТОП Держателей токенов:</b>\n\n"
+            "{top_holders}"
+        ),
+        "top_select_token": (
+            f"{hide_link(pictures['TOP select token'])}"
+            "🔍 <b>Выберите токен:</b>"
+        ),
+        "balance_command": (
+            f"{hide_link(pictures['Balance command'])}"
+            "👤 {user_full_name}\n\n{balances}"
+        ),
+        "balance_command_no_tokens": (
+            f"{hide_link(pictures['Balance command no tokens'])}"
+            "👤 {user_full_name}\n\n"
+            "<b>Токены отсутствуют!</b>"
         ),
 
         "connect_wallet": (
@@ -225,7 +249,31 @@ TEXT_MESSAGES = {
             "I will approve them immediately!"
         ),
         "user_kicked": (
-            "User {user} [{wallet}] was kicked from chat!"
+            "👮‍♀️ User {user} [{wallet}] was kicked from chat!"
+        ),
+
+        "welcome_to_chat": (
+            f"{hide_link(pictures['Welcome to chat'])}"
+            "👋 <b>Welcome {user_full_name}!</b>\n\n"
+            "{balances}"
+        ),
+        "top_holders": (
+            f"{hide_link(pictures['TOP holders'])}"
+            f"🏆 <b>TOP Token Holders:</b>\n\n"
+            "{top_holders}"
+        ),
+        "top_select_token": (
+            f"{hide_link(pictures['TOP select token'])}"
+            "🔍 <b>Select token:</b>"
+        ),
+        "balance_command": (
+            f"{hide_link(pictures['Balance command'])}"
+            "👤 {user_full_name}\n\n{balances}"
+        ),
+        "balance_command_no_tokens": (
+            f"{hide_link(pictures['Balance command no tokens'])}"
+            "👤 {user_full_name}\n\n"
+            "<b>Tokens missing!</b>"
         ),
 
         "connect_wallet": (

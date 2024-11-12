@@ -1,7 +1,7 @@
 from typing import Callable, Dict, Any, Awaitable
 
 from aiogram import BaseMiddleware
-from aiogram.types import TelegramObject, Chat, User
+from aiogram.types import TelegramObject, User
 
 from app.bot.manager import Manager
 

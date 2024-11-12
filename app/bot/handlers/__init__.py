@@ -4,8 +4,8 @@ from aiogram_tonconnect.handlers import AiogramTonConnectHandlers
 
 from . import admin
 from . import chats
-from . import private
 from . import errors
+from . import private
 
 
 def bot_routers_include(dp: Dispatcher) -> None:
@@ -15,6 +15,7 @@ def bot_routers_include(dp: Dispatcher) -> None:
     dp.include_routers(
         *[
             admin.command.router,
+            chats.command.router,
             private.command.router,
         ],
     )
@@ -27,6 +28,7 @@ def bot_routers_include(dp: Dispatcher) -> None:
             errors.router,
 
             admin.callback_query.router,
+            chats.callback_query.router,
             private.callback_query.router,
 
             admin.message.router,

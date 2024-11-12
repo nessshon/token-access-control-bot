@@ -1,8 +1,9 @@
 from typing import Union
+
+from apscheduler.events import EVENT_JOB_ERROR
 from apscheduler.job import Job
 from apscheduler.jobstores.redis import RedisJobStore
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
-from apscheduler.events import EVENT_JOB_ERROR
 
 from . import tasks
 from .errors import on_job_error

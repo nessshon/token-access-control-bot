@@ -1,8 +1,8 @@
 import asyncio
 
+from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
-from aiogram import Bot, Dispatcher
 from aiogram.fsm.storage.redis import RedisStorage
 from pytonapi import AsyncTonapi
 from redis.asyncio import Redis

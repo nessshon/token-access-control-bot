@@ -32,3 +32,10 @@ async def kick_member(bot: Bot, member: MemberDB) -> None:
         await asyncio.sleep(.2)
         await bot.unban_chat_member(member.chat_id, member.user_id)
         await asyncio.sleep(.2)
+
+
+def amount_str(amount) -> str:
+    from decimal import Decimal
+
+    amount = Decimal(str(amount))
+    return "{:,.15f}".format(amount).rstrip('0').rstrip('.')

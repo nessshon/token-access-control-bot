@@ -1,7 +1,7 @@
-from typing import Dict, List, Optional, Tuple, Sequence
+from typing import Dict, Optional, Sequence, List, Tuple
 
-from aiogram.types import InlineKeyboardMarkup as Markup
 from aiogram.types import InlineKeyboardButton as Button
+from aiogram.types import InlineKeyboardMarkup as Markup
 from aiogram.utils.keyboard import InlineKeyboardBuilder as Builder
 from aiogram_tonconnect.utils.keyboards import InlineKeyboard as AiogramTonconnectInlineKeyboardBase
 
@@ -78,6 +78,18 @@ def deny_access(text_button: TextButton, tokens: Sequence[TokenDB]) -> Markup:
     return Markup(inline_keyboard=inline_keyboard)
 
 
+def select_tokens(tokens: Sequence[TokenDB]) -> Markup:
+    builder = Builder()
+    builder.row(
+        *[
+            Button(text=token.name, callback_data=f"{token.id}:{1}")
+            for token in tokens
+        ], width=1,
+    )
+
+    return builder.as_markup()
+
+
 class InlineKeyboardPaginator:
     """
     A class that generates an inline keyboard for paginated data.
@@ -103,7 +115,6 @@ class InlineKeyboardPaginator:
             items: Optional[List[Tuple]] = None,
             current_page: int = 1,
             total_pages: int = 1,
-            row_width: int = 1,
             data_pattern: str = "page:{}",
             before_reply_markup: Optional[Markup] = None,
             after_reply_markup: Optional[Markup] = None,
@@ -111,7 +122,6 @@ class InlineKeyboardPaginator:
         self.items = items or []
         self.current_page = current_page
         self.total_pages = total_pages
-        self.row_width = row_width
         self.data_pattern = data_pattern
 
         self.builder = Builder()
@@ -123,7 +133,7 @@ class InlineKeyboardPaginator:
 
         for key, val in self.items:
             builder.button(text=str(key), callback_data=str(val))
-        builder.adjust(self.row_width)
+        builder.adjust(1)
 
         return builder
 

@@ -10,10 +10,11 @@ from aiogram.filters.chat_member_updated import (
 from aiogram.types import ChatMemberUpdated, ChatJoinRequest
 
 from app.bot.handlers.admin.windows import AdminWindow
+from app.bot.handlers.chats.windows import ChatWindow
 from app.bot.handlers.private.windows import Window
 from app.bot.manager import Manager, SendMode
 from app.bot.utils import user_is_holder
-from app.db.models import AdminDB, TokenDB, MemberDB
+from app.db.models import AdminDB, TokenDB, MemberDB, UserDB
 
 router = Router()
 router.my_chat_member.filter(
@@ -53,23 +54,6 @@ async def bot_added_to_channel(
         await AdminWindow.chat_confirm_add(manager, send_mode=SendMode.SEND)
 
 
-@router.my_chat_member(
-    ChatMemberUpdatedFilter(
-        member_status_changed=IS_NOT_MEMBER,
-    ),
-    F.new_chat_member.user.is_bot.is_(False),
-)
-async def bot_left_from_channel(event: ChatMemberUpdated, manager: Manager) -> None:
-    """
-    Member was left from channel.
-    """
-    await MemberDB.delete_by_filter(
-        manager.sessionmaker,
-        user_id=event.from_user.id,
-        chat_id=event.chat.id,
-    )
-
-
 @router.chat_join_request()
 async def chat_join_request(event: ChatJoinRequest, manager: Manager) -> None:
     manager = await Manager.from_user(manager.user_db.id)
@@ -86,6 +70,28 @@ async def chat_join_request(event: ChatJoinRequest, manager: Manager) -> None:
                 chat_id=event.chat.id,
             )
             await event.approve()
+            if event.chat.type != ChatType.CHANNEL:
+                user = await UserDB.get(manager.sessionmaker, event.from_user.id)
+                text = manager.text_message.get("welcome_to_chat")
+                await ChatWindow.balance(event, manager, user, text)
+
         else:
             await Window.deny_access(manager, send_mode=SendMode.SEND)
             await event.decline()
+
+
+@router.my_chat_member(
+    ChatMemberUpdatedFilter(
+        member_status_changed=IS_NOT_MEMBER,
+    ),
+    F.new_chat_member.user.is_bot.is_(False),
+)
+async def bot_left_from_channel(event: ChatMemberUpdated, manager: Manager) -> None:
+    """
+    Member was left from channel.
+    """
+    await MemberDB.delete_by_filter(
+        manager.sessionmaker,
+        user_id=event.from_user.id,
+        chat_id=event.chat.id,
+    )
