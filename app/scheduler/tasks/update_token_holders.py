@@ -1,15 +1,56 @@
 import asyncio
 import logging
+from typing import List
 
 from aiogram import Bot
 from pytonapi import AsyncTonapi
 from pytonapi.exceptions import TONAPIInternalServerError
+from pytonapi.schema.jettons import JettonHolder, JettonHolders
+from pytonapi.schema.nft import NftItem, NftItems
 from pytonapi.utils import nano_to_amount
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.bot.utils.messages import send_message
 from app.config import Config
 from app.db.models import TokenDB
+
+
+async def get_all_nft_items(config: Config, tonapi: AsyncTonapi, account_id: str) -> NftItems:
+    nft_items: List[NftItem] = []
+    interval = 1 / config.tonapi.RPS
+    offset, limit = 0, 1000
+
+    while True:
+        result = await tonapi.nft.get_items_by_collection_address(
+            account_id=account_id, limit=limit, offset=offset,
+        )
+        nft_items += result.nft_items
+        offset += limit
+
+        await asyncio.sleep(interval)
+        if len(result.nft_items) != limit:
+            break
+
+    return NftItems(nft_items=nft_items)
+
+
+async def get_all_jetton_holders(config: Config, tonapi: AsyncTonapi, account_id: str) -> JettonHolders:
+    jetton_holders: List[JettonHolder] = []
+    interval = 1 / config.tonapi.RPS
+    offset, limit = 0, 1000
+
+    while True:
+        result = await tonapi.jettons.get_holders(
+            account_id=account_id, limit=limit, offset=offset,
+        )
+        jetton_holders += result.addresses
+        offset += limit
+
+        await asyncio.sleep(interval)
+        if len(result.addresses) != limit:
+            break
+
+    return JettonHolders(addresses=jetton_holders, total=result.total)
 
 
 async def update_token_holders() -> None:
@@ -25,11 +66,11 @@ async def update_token_holders() -> None:
 
         try:
             if token.type == TokenDB.Type.NFTCollection:
-                request = await tonapi.nft.get_all_items_by_collection_address(account_id=token.address)
-                collection = await tonapi.nft.get_collection_by_collection_address(account_id=token.address)
+                result = await get_all_nft_items(config, tonapi, token.address)
+                collection = await tonapi.nft.get_collection_by_collection_address(token.address)
                 total_holders, found_holders = collection.next_item_index, 0
 
-                for nft in request.nft_items:
+                for nft in result.nft_items:
                     if nft.owner.address.to_raw() in holders:
                         holders[nft.owner.address.to_raw()] += 1
                     else:
@@ -37,11 +78,11 @@ async def update_token_holders() -> None:
                     found_holders += 1
 
             else:
-                request = await tonapi.jettons.get_all_holders(account_id=token.address)
-                total_holders, found_holders = request.total, 0
+                result = await get_all_jetton_holders(config, tonapi, token.address)
+                total_holders, found_holders = result.total, 0
 
-                for address in request.addresses:
-                    holders[address.owner.address.to_raw()] = nano_to_amount(int(address.balance), 9)
+                for holder in result.addresses:
+                    holders[holder.owner.address.to_raw()] = nano_to_amount(int(holder.balance), 9)
                     found_holders += 1
 
         except TONAPIInternalServerError as e:

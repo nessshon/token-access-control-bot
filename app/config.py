@@ -4,7 +4,6 @@ from pathlib import Path
 from typing import Union
 
 import environs
-
 from environs import Env
 
 BASE_DIR = Path(__file__).resolve().parent
@@ -51,6 +50,7 @@ class DatabaseConfig:
 @dataclass
 class TONAPIConfig:
     KEY: str
+    RPS: int
     TONCONNECT_KEY: Union[str, None]
 
 
@@ -100,6 +100,7 @@ def load_config() -> Config:
         ),
         tonapi=TONAPIConfig(
             KEY=env.str("TONAPI_KEY"),
+            RPS=env.int("TONAPI_RPS"),
             TONCONNECT_KEY=tonconnect_key,
         ),
         scheduler=SchedulerConfig(
