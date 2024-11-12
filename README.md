@@ -33,7 +33,8 @@ unique non-transferable identifiers for each participant.
 <details>
 <summary><b>Preparation and installation</b></summary>
 
-You need your own server or you can rent one from a hosting provider. For this, check out the [Recommended Hosting Provider](#recommended-hosting-provider) section below.
+You need your own server or you can rent one from a hosting provider. For this, check out
+the [Recommended Hosting Provider](#recommended-hosting-provider) section below.
 
 1. Create a private group and/or channel.
 
@@ -41,69 +42,65 @@ You need your own server or you can rent one from a hosting provider. For this, 
 
 3. Create an API key on [tonconsole.com](https://tonconsole.com) (later referred to as `TONAPI_KEY`).
 
-4. Obtain a key for TON Connect (**Optional**, later referred to as `TONAPI_TONCONNECT_KEY`).
-   <blockquote>This key is necessary for the correct functioning of TON Connect on the backend under heavy user load. If you are expecting a high volume of traffic, more than one user per second, contact <a href="https://t.me/subden" alt=''">@subden</a> via private message to receive the key. Tell him about your project and the need for this key. If you don't expect much traffic, you can skip this step and use the bot without a key.</blockquote>
-
-5. Clone the repository:
+4. Clone the repository:
 
     ```bash
     git clone https://github.com/nessshon/token-access-control-bot.git
     ```
 
-6. Navigate to the bot directory:
+5. Navigate to the bot directory:
 
     ```bash
     cd token-access-control-bot
     ```
 
-7. Clone the environment variables file:
+6. Clone the environment variables file:
 
    ```bash
    cp .env.example .env
    ```
 
-8. Configure [environment variables](#environment-variables-reference) file:
+7. Configure [environment variables](#environment-variables-reference) file:
 
    ```bash
    nano .env
    ```
 
-9. Install Docker and Docker Compose:
+8. Install Docker and Docker Compose:
 
    ```bash
    sudo apt install docker.io && apt install docker-compose -y
    ```
 
-10. Run the bot in a Docker container:
+9. Run the bot in a Docker container:
 
-    ```bash
-    docker-compose up --build
-    ```
-    If you encounter the error:
-    ```log
-    Error while fetching server API version: HTTPConnection.request() got an unexpected keyword argument 'chunked'
-    ```
-    Install the latest version of docker-compose using the following command:
-    ```bash
-    sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose  && sudo chmod +x /usr/bin/docker-compose
-    ```
-    After the bot is up and running smoothly, you can stop the containers by pressing **Ctrl + C** or **Ctrl + Shift + C** in the terminal. Then, to restart them in the background, use:
-    ```bash
-    docker-compose up -d
-    ```
+   ```bash
+   docker-compose up --build
+   ```
+   If you encounter the error:
+   ```log
+   Error while fetching server API version: HTTPConnection.request() got an unexpected keyword argument 'chunked'
+   ```
+   Install the latest version of docker-compose using the following command:
+   ```bash
+   sudo curl -L "https://github.com/docker/compose/releases/latest/download/docker-compose-$(uname -s)-$(uname -m)" -o /usr/bin/docker-compose  && sudo chmod +x /usr/bin/docker-compose
+   ```
+   After the bot is up and running smoothly, you can stop the containers by pressing **Ctrl + C** or **Ctrl + Shift + C
+   ** in the terminal. Then, to restart them in the background, use:
+   ```bash
+   docker-compose up -d
+   ```
 
-11. Start the bot with the command `/start`, choose the language, and connect wallet.
+10. Start the bot with the command `/start`, choose the language, and connect wallet.
 
-12. Access the admin panel with the command `/admin` and add the token.
+11. Access the admin panel with the command `/admin` and add the token.
 
-13. Add the bot to your private chat, ensuring you grant permissions to add administrators. After that, the bot will
+12. Add the bot to your private chat, ensuring you grant permissions to add administrators. After that, the bot will
     prompt you to add the chat to the database for monitoring.
 
-14. You're all set!
+13. You're all set!
 
-<blockquote>
-Customize the bot's texts in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py">texts</a> file and pictures in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts_pics.py">texts_pics</a> file according to your requirements. Additionally, if desired, add your preferred language to <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4">SUPPORTED_LANGUAGES</a> and insert the corresponding codes into <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9">TEXT_BUTTONS</a> and <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54">TEXT_MESSAGES</a>.
-</blockquote>
+<blockquote>Customize the bot's texts in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py">texts</a> file and pictures in the <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts_pics.py">texts_pics</a> file according to your requirements. Additionally, if desired, add your preferred language to <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L4">SUPPORTED_LANGUAGES</a> and insert the corresponding codes into <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L9">TEXT_BUTTONS</a> and <a href="https://github.com/nessshon/token-access-control-bot/blob/main/app/texts.py#L54">TEXT_MESSAGES</a>.</blockquote>
 
 </details>
 
@@ -119,12 +116,12 @@ Here's a comprehensive reference guide for the environment variables used in the
 | `BOT_TOKEN`                               | `str`  | Bot token obtained from [@BotFather](https://t.me/BotFather)                                                                                                                                                                  | `123456:qweRTY`                                                                                     | 
 | `BOT_DEV_ID`                              | `int`  | User ID of the bot developer, obtain it from [my_id_bot](https://t.me/my_id_bot)                                                                                                                                              | `123456789`                                                                                         |
 | `BOT_ADMIN_ID`                            | `int`  | User ID of the bot admin, obtain it from [my_id_bot](https://t.me/my_id_bot)                                                                                                                                                  | `123456789`                                                                                         |
-| `DEX_NAME`                                | `str`  | The name of the DEX identifying the provider is displayed in the bot for purchasing or viewing tokens.                                                                                                                        | `dedust` or `stonfi`                                                                                |
+| `DEX_NAME`                                | `str`  | The name of the DEX identifying the provider is displayed in the bot for purchasing or viewing tokens                                                                                                                         | `dedust` or `stonfi` or `swapcoffee`                                                                |
 | `IS_TESTNET`                              | `bool` | Set to `True` for TON testnet or `False` for mainnet                                                                                                                                                                          | `False`                                                                                             |
 | `MANIFEST_URL`                            | `str`  | URL of the bot's manifest file                                                                                                                                                                                                | `https://raw.githubusercontent.com/nessshon/token-access-control-bot/main/tonconnect-manifest.json` |
-| `EXCLUDE_WALLETS`                         | `list` | List of wallets to exclude                                                                                                                                                                                                    | `["mytonwallet"]`                                                                |
+| `EXCLUDE_WALLETS`                         | `list` | List of wallets to exclude                                                                                                                                                                                                    | `["mytonwallet"]`                                                                                   |
 | `TONAPI_KEY`                              | `str`  | API key for TONAPI, obtain it from [tonconsole.com](https://tonconsole.com)                                                                                                                                                   | `AE33E...3FYQ`                                                                                      |
-| `TONAPI_TONCONNECT_KEY`                   | `str`  | API key for TON Connect (**optional**), obtain it by contacting [@subden](https://t.me/subden)                                                                                                                                | `587d4...5a71` or leave empty                                                                       |
+| `TONAPI_RPS`                              | `str`  | Specifies the requests per second (RPS) limit for TONAPI to avoid exceeding rate limits and ensure stable performance                                                                                                         | `1`                                                                                                 |
 | `SCHEDULER_CHECK_CHAT_MEMBERS_INTERVAL`   | `int`  | Interval (minutes) for checking chat members (5 minutes is acceptable)                                                                                                                                                        | `5`                                                                                                 |
 | `SCHEDULER_UPDATE_TOKEN_HOLDERS_INTERVAL` | `int`  | Interval (minutes) for updating token holders (adjust value by Jetton holders or NFT elements. Every 1000 tokens or holders equals 1-2 seconds. For instance, for collections with 30k or fewer elements, set the value to 1) | `5`                                                                                                 |
 | `REDIS_HOST`                              | `str`  | Hostname or IP address of the Redis server (set `redis` if you don't have your own Redis server)                                                                                                                              | `redis`                                                                                             |
