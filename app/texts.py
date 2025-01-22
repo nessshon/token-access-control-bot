@@ -133,6 +133,11 @@ TEXT_MESSAGES = {
             "<b>Предупреждение</b>\n\n"
             "Время ожидания подключения истекло."
         ),
+        "connect_wallet_rejected": (
+            f"{hide_link(pictures['Connect'])}"
+            "<b>Предупреждение</b>\n\n"
+            "Подключение кошелька было отклонено."
+        ),
 
         "admin_menu": (
             f"{hide_link(pictures['Main'])}"
@@ -290,6 +295,11 @@ TEXT_MESSAGES = {
             f"{hide_link(pictures['Connect'])}"
             "<b>Warning</b>\n\n"
             "The connection timeout has expired."
+        ),
+        "connect_wallet_rejected": (
+            f"{hide_link(pictures['Connect'])}"
+            "<b>Warning</b>\n\n"
+            "The connection was rejected."
         ),
 
         "admin_menu": (
