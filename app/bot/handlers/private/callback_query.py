@@ -51,7 +51,6 @@ async def select_language_callback_query(
                 before_callback=Window.select_language,
                 after_callback=Window.main_menu,
             ),
-            check_proof=True,
         )
 
     await call.answer()

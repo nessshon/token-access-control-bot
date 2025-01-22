@@ -1,9 +1,11 @@
 import asyncio
+import logging
 
 from aiogram import Bot, Dispatcher
 from aiogram.client.default import DefaultBotProperties
 from aiogram.enums import ParseMode
 from aiogram.fsm.storage.redis import RedisStorage
+from aiogram_tonconnect.tonconnect.storage import ATCRedisStorage
 from pytonapi import AsyncTonapi
 from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import (
@@ -12,6 +14,7 @@ from sqlalchemy.ext.asyncio import (
     async_sessionmaker,
     create_async_engine,
 )
+from tonutils.tonconnect import TonConnect
 
 from .bot.commands import (
     bot_commands_setup,
@@ -36,6 +39,7 @@ async def on_startup(
         scheduler: Scheduler,
         engine: AsyncEngine,
         sessionmaker: async_sessionmaker,
+        tonconnect: TonConnect,
 ) -> None:
     """
     Startup event handler. This runs when the bot starts up.
@@ -45,6 +49,7 @@ async def on_startup(
     loop.__setattr__("bot", bot)
     loop.__setattr__("config", config)
     loop.__setattr__("tonapi", tonapi)
+    loop.__setattr__("tonconnect", tonconnect)
     loop.__setattr__("sessionmaker", sessionmaker)
 
     async with engine.begin() as conn:
@@ -56,6 +61,7 @@ async def on_startup(
         config=config,
         scheduler=scheduler,
         sessionmaker=sessionmaker,
+        tonconnect=tonconnect,
     )
     bot_routers_include(dispatcher)
     scheduler.run()
@@ -111,6 +117,11 @@ async def main() -> None:
     storage = RedisStorage.from_url(
         url=config.redis.dsn(),
     )
+    tonconnect = TonConnect(
+        storage=ATCRedisStorage(storage.redis),
+        manifest_url=config.MANIFEST_URL,
+        api_tokens={"tonapi": config.tonapi.TONCONNECT_KEY},
+    )
     bot = Bot(
         token=config.bot.TOKEN,
         default=DefaultBotProperties(
@@ -126,6 +137,7 @@ async def main() -> None:
         sessionmaker=sessionmaker,
         scheduler=scheduler,
         tonapi=tonapi,
+        tonconnect=tonconnect,
     )
 
     # Register startup handler
@@ -140,6 +152,6 @@ async def main() -> None:
 
 if __name__ == "__main__":
     # Setup logging
-    setup_logger()
+    setup_logger(logging.DEBUG)
     # Run the bot
     asyncio.run(main())

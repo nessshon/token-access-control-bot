@@ -71,7 +71,6 @@ class Config:
     DEX_NAME: str
     IS_TESTNET: bool
     MANIFEST_URL: str
-    EXCLUDE_WALLETS: list[str]
 
 
 def load_config() -> Config:
@@ -111,5 +110,4 @@ def load_config() -> Config:
         DEX_NAME=env.str("DEX_NAME"),
         IS_TESTNET=env.bool("IS_TESTNET"),
         MANIFEST_URL=env.str("MANIFEST_URL"),
-        EXCLUDE_WALLETS=env.str("EXCLUDE_WALLETS"),
     )

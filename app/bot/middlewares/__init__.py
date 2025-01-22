@@ -1,17 +1,15 @@
 from aiogram import Dispatcher
 from aiogram_newsletter.middleware import AiogramNewsletterMiddleware
 from aiogram_tonconnect.middleware import AiogramTonConnectMiddleware
-from aiogram_tonconnect.tonconnect.storage.base import ATCRedisStorage
 from aiogram_tonconnect.utils.qrcode import QRUrlProvider
-from redis.asyncio import Redis
 from sqlalchemy.ext.asyncio import async_sessionmaker
+from tonutils.tonconnect import TonConnect
 
 from .database import DBSessionMiddleware
 from .manager import ManagerMiddleware
 from .throttling import ThrottlingMiddleware
 from ..utils.keyboards import AiogramTonconnectInlineKeyboard
 from ..utils.texts import AiogramTonconnectTextMessage
-from ...config import Config
 from ...scheduler import Scheduler
 
 
@@ -19,20 +17,16 @@ def bot_middlewares_register(dp: Dispatcher, **kwargs) -> None:
     """
     Register bot middlewares.
     """
-    redis: Redis = kwargs["redis"]
-    config: Config = kwargs["config"]
     scheduler: Scheduler = kwargs["scheduler"]
+    tonconnect: TonConnect = kwargs["tonconnect"]
     sessionmaker: async_sessionmaker = kwargs["sessionmaker"]
 
     dp.update.outer_middleware.register(
         AiogramTonConnectMiddleware(
-            storage=ATCRedisStorage(redis),
-            manifest_url=config.MANIFEST_URL,
+            tonconnect=tonconnect,
             text_message=AiogramTonconnectTextMessage,
             inline_keyboard=AiogramTonconnectInlineKeyboard,
             qrcode_provider=QRUrlProvider(),
-            tonapi_token=config.tonapi.TONCONNECT_KEY,
-            exclude_wallets=config.EXCLUDE_WALLETS,
         )
     )
 

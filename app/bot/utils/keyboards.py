@@ -96,7 +96,6 @@ class InlineKeyboardPaginator:
 
     Args:
         items (List[Tuple]): A list of tuples containing the data to be displayed in the keyboard.
-        row_width (int): The number of buttons to be displayed per row.
         total_pages (int): The total number of pages.
         current_page (int): The current page number.
         data_pattern (str): The pattern to be used for the callback data.

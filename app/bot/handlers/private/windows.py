@@ -1,6 +1,8 @@
+from typing import Optional
+
 from aiogram.utils.markdown import hcode
 from aiogram_tonconnect import ATCManager
-from aiogram_tonconnect.tonconnect.models import AccountWallet
+from tonutils.tonconnect import Connector
 
 from app.bot.manager import Manager, SendMode
 from app.bot.utils import keyboards
@@ -12,7 +14,7 @@ from app.db.models import UserDB, ChatDB, TokenDB
 class Window:
 
     @staticmethod
-    async def select_language(manager: Manager, send_mode: SendMode = SendMode.EDIT, **_) -> None:
+    async def select_language(manager: Manager, send_mode: SendMode = SendMode.EDIT) -> None:
         text = manager.text_message.get("select_language")
         reply_markup = keyboards.select_language()
 
@@ -20,7 +22,7 @@ class Window:
         await manager.state.set_state(UserState.SELECT_LANGUAGE)
 
     @staticmethod
-    async def change_language(manager: Manager, send_mode: SendMode = SendMode.EDIT, **_) -> None:
+    async def change_language(manager: Manager, send_mode: SendMode = SendMode.EDIT) -> None:
         text = manager.text_message.get("change_language")
         reply_markup = keyboards.select_language()
 
@@ -31,20 +33,19 @@ class Window:
     async def main_menu(
             manager: Manager,
             send_mode: SendMode = SendMode.EDIT,
-            account_wallet: AccountWallet = None,
-            **data,
+            atc_manager: Optional[ATCManager] = None,
+            connector: Optional[Connector] = None,
     ) -> None:
         wallet_address = manager.user_db.wallet_address
 
-        if account_wallet:
+        if connector:
             await manager.send_loader_message()
             await UserDB.update(
                 manager.sessionmaker,
                 primary_key=manager.user_db.id,
-                wallet_address=account_wallet.address.to_userfriendly(),
+                wallet_address=connector.account.address.to_str(is_bounceable=False),
             )
-            wallet_address = account_wallet.address.to_userfriendly()
-            atc_manager: ATCManager = data.get("atc_manager")
+            wallet_address = connector.account.address.to_str(is_bounceable=False)
             await atc_manager.disconnect_wallet()
 
         chats = await ChatDB.all(manager.sessionmaker)

@@ -7,7 +7,7 @@ from pytonapi import AsyncTonapi
 from pytonapi.exceptions import TONAPIInternalServerError
 from pytonapi.schema.jettons import JettonHolder, JettonHolders
 from pytonapi.schema.nft import NftItem, NftItems
-from pytonapi.utils import nano_to_amount
+from pytonapi.utils import to_amount
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.bot.utils.messages import send_message
@@ -56,7 +56,7 @@ async def get_all_jetton_holders(
         offset += limit
 
         await asyncio.sleep(interval)
-        last_balance = nano_to_amount(int(jetton_holders[-1].balance))
+        last_balance = int(jetton_holders[-1].balance)
         if last_balance < min_amount:
             break
 
@@ -89,12 +89,12 @@ async def update_token_holders() -> None:
 
             else:
                 result = await get_all_jetton_holders(config, tonapi, token.address, token.min_amount)
-                total_holders = found_holders = result.total
+                total_holders = found_holders = to_amount(result.total)
                 if total_holders > token.min_amount:
                     found_holders = -1
 
                 for holder in result.addresses:
-                    holders[holder.owner.address.to_raw()] = nano_to_amount(int(holder.balance), 9)
+                    holders[holder.owner.address.to_raw()] = to_amount(int(holder.balance), precision=9)
 
         except TONAPIInternalServerError as e:
             logging.error(f"{e.__class__.__name__}: {e}")
@@ -108,6 +108,7 @@ async def update_token_holders() -> None:
             continue
 
         if holders and total_holders == found_holders:
+            logging.info(f"Updated holders for {token.name} [{token.address}]")
             await TokenDB.update(sessionmaker, primary_key=token.id, holders=holders)
         else:
             logging.error(f"Failed to update holders for {token.name} [{token.address}]")

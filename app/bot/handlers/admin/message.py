@@ -37,7 +37,7 @@ async def token_send_address_message(message: Message, manager: Manager, tonapi:
                     token_type = TokenDB.Type.NFTCollection
                     token = await tonapi.nft.get_collection_by_collection_address(account.address.to_raw())
 
-                await manager.state.update_data(account=account.dict(), token=token.dict(), token_type=token_type)
+                await manager.state.update_data(account=account.model_dump(), token=token.model_dump(), token_type=token_type)
                 await AdminWindow.token_send_amount(manager)
             else:
                 raise ValueError(
