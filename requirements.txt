@@ -6,8 +6,7 @@ aiosqlite~=0.20.0
 apscheduler==3.10.0
 cachetools>=5.3.2
 environs==10.3.0
-pydantic>=2.5.0
-pytonapi==0.4.6
+pytonapi==0.4.7
 redis>=5.0.2
 sqlalchemy==2.0.27
-tonutils~=0.2.4
+tonutils~=0.2.5
