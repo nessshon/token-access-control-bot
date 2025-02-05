@@ -152,6 +152,6 @@ async def main() -> None:
 
 if __name__ == "__main__":
     # Setup logging
-    setup_logger(logging.DEBUG)
+    setup_logger(logging.INFO)
     # Run the bot
     asyncio.run(main())
