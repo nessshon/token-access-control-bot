@@ -2,6 +2,7 @@ from aiogram import Router, F
 from aiogram.types import Message
 from aiogram.utils.markdown import hcode
 from pytonapi import AsyncTonapi
+from pytonapi.utils import to_nano
 
 from app.db.models import TokenDB
 from ._filters import AdminFilter
@@ -37,7 +38,8 @@ async def token_send_address_message(message: Message, manager: Manager, tonapi:
                     token_type = TokenDB.Type.NFTCollection
                     token = await tonapi.nft.get_collection_by_collection_address(account.address.to_raw())
 
-                await manager.state.update_data(account=account.model_dump(), token=token.model_dump(), token_type=token_type)
+                await manager.state.update_data(account=account.model_dump(), token=token.model_dump(),
+                                                token_type=token_type)
                 await AdminWindow.token_send_amount(manager)
             else:
                 raise ValueError(
@@ -94,6 +96,8 @@ async def token_edit_amount_message(message: Message, manager: Manager) -> None:
 
         if min_amount and token.type == TokenDB.Type.NFTCollection and not min_amount.is_integer():
             min_amount = int(min_amount)
+        if token.type == TokenDB.Type.JettonMaster:
+            min_amount = to_nano(min_amount, token.decimals)
 
         if min_amount and min_amount > 0:
             await TokenDB.update(

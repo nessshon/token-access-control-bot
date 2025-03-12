@@ -7,7 +7,6 @@ from pytonapi import AsyncTonapi
 from pytonapi.exceptions import TONAPIInternalServerError
 from pytonapi.schema.jettons import JettonHolder, JettonHolders
 from pytonapi.schema.nft import NftItem, NftItems
-from pytonapi.utils import to_amount
 from sqlalchemy.ext.asyncio import async_sessionmaker
 
 from app.bot.utils.messages import send_message
@@ -89,12 +88,12 @@ async def update_token_holders() -> None:
 
             else:
                 result = await get_all_jetton_holders(config, tonapi, token.address, token.min_amount)
-                total_holders = found_holders = to_amount(result.total)
+                total_holders = found_holders = result.total
                 if total_holders > token.min_amount:
                     found_holders = -1
 
                 for holder in result.addresses:
-                    holders[holder.owner.address.to_raw()] = to_amount(int(holder.balance), precision=9)
+                    holders[holder.owner.address.to_raw()] = int(holder.balance)
 
         except TONAPIInternalServerError as e:
             logging.error(f"{e.__class__.__name__}: {e}")

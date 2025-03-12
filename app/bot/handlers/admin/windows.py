@@ -6,7 +6,7 @@ from pytonapi.schema.jettons import JettonInfo
 from pytonapi.schema.nft import NftCollection
 
 from app.bot.manager import Manager, SendMode
-from app.bot.utils import keyboards
+from app.bot.utils import keyboards, amount_string
 from app.bot.utils.states import AdminState
 from app.bot.utils.urls import TonviewerUrl
 from app.db.models import ChatDB, TokenDB, AdminDB
@@ -124,10 +124,16 @@ class AdminWindow:
         token = await TokenDB.get(manager.sessionmaker, state_data.get("token_id"))
 
         tonviewer_url = TonviewerUrl(token.address, token.name)
+
+        if token.type == token.Type.NFTCollection:
+            token_min_amount = token.min_amount
+        else:
+            token_min_amount = amount_string(token.min_amount, token.decimals)
+
         text = manager.text_message.get("token_info").format(
             token_name=token.name,
             token_type=token.type,
-            token_min_amount=token.min_amount,
+            token_min_amount=token_min_amount,
             token_address=tonviewer_url.hlink_short,
             token_created_at=token.created_at.strftime("%Y-%m-%d %H:%M"),
         )

@@ -4,6 +4,7 @@ from aiogram_newsletter.manager import ANManager
 from pytonapi.schema.accounts import Account
 from pytonapi.schema.jettons import JettonInfo
 from pytonapi.schema.nft import NftCollection
+from pytonapi.utils import to_nano
 
 from app.db.models import UserDB, ChatDB, TokenDB, AdminDB
 from ._filters import AdminFilter
@@ -204,13 +205,17 @@ async def token_confirm_add_callback_query(call: CallbackQuery, manager: Manager
         account = Account(**state_data.get("account"))
 
         token_type = state_data.get("token_type")
+        token_min_amount = state_data.get("token_min_amount")
+
         if token_type == TokenDB.Type.JettonMaster:
             token = JettonInfo(**state_data.get("token"))
             token_name = f"{token.metadata.name} ${token.metadata.symbol}"
+            token_decimals = int(token.metadata.decimals)
+            token_min_amount = to_nano(token_min_amount, decimals=token_decimals)
         else:
             token = NftCollection(**state_data.get("token"))
             token_name = token.metadata.get("name", "Unknown Collection")
-        token_min_amount = state_data.get("token_min_amount")
+            token_decimals = None
 
         await TokenDB.create_or_update(
             manager.sessionmaker,
@@ -218,6 +223,7 @@ async def token_confirm_add_callback_query(call: CallbackQuery, manager: Manager
             type=token_type,
             address=account.address.to_userfriendly(True),
             min_amount=token_min_amount,
+            decimals=token_decimals,
         )
         text = manager.text_message.get("item_added").format(
             item=token_name, table=TokenDB.__tablename__.title(),

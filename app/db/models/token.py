@@ -39,19 +39,17 @@ class TokenDB(AbstractModel):
         nullable=True,
     )
     min_amount = Column(
-        Float,
+        BigInteger,
         nullable=False,
         default=0,
+    )
+    decimals = Column(
+        Integer,
+        nullable=True,
+        default=9,
     )
     created_at = Column(
         DateTime,
         default=func.now(),
         nullable=False,
     )
-
-    @property
-    def min_amount_str(self) -> str:
-        from decimal import Decimal
-
-        amount = Decimal(str(self.min_amount))
-        return "{:,.15f}".format(amount).rstrip('0').rstrip('.')

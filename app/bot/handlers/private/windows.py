@@ -5,7 +5,7 @@ from aiogram_tonconnect import ATCManager
 from tonutils.tonconnect import Connector
 
 from app.bot.manager import Manager, SendMode
-from app.bot.utils import keyboards
+from app.bot.utils import keyboards, amount_string
 from app.bot.utils.states import UserState
 from app.bot.utils.urls import NFTBuyUrl, JettonBuyUrl, TonviewerUrl
 from app.db.models import UserDB, ChatDB, TokenDB
@@ -56,9 +56,9 @@ class Window:
             chats="\n".join([f"• {hcode(chat.name)}" for chat in chats]),
             tokens="\n".join(
                 [
-                    f"• {NFTBuyUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
+                    f"• {NFTBuyUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount)}"
                     if token.type == TokenDB.Type.NFTCollection else
-                    f"• {JettonBuyUrl(token.address, token.name).hlink_name} - {hcode(token.min_amount_str)}"
+                    f"• {JettonBuyUrl(token.address, token.name).hlink_name} - {hcode(amount_string(token.min_amount, token.decimals))}"
                     for token in tokens
                 ]
             )

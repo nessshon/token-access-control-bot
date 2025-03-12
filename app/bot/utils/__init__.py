@@ -1,10 +1,11 @@
 import asyncio
 from contextlib import suppress
-from typing import Sequence
+from decimal import Decimal
+from typing import Sequence, Optional
 
 from aiogram import Bot
 from aiogram.exceptions import TelegramBadRequest
-from pytonapi.utils import userfriendly_to_raw
+from pytonapi.utils import userfriendly_to_raw, to_amount
 
 from app.db.models import MemberDB, TokenDB, UserDB
 
@@ -34,8 +35,6 @@ async def kick_member(bot: Bot, member: MemberDB) -> None:
         await asyncio.sleep(.2)
 
 
-def amount_str(amount) -> str:
-    from decimal import Decimal
-
-    amount = Decimal(str(amount))
-    return "{:,.15f}".format(amount).rstrip('0').rstrip('.')
+def amount_string(amount: int, decimals: Optional[int] = None) -> str:
+    amount = to_amount(amount, decimals=decimals)  # type: ignore
+    return "{:,.9}".format(Decimal(str(amount))).rstrip('0').rstrip('.')

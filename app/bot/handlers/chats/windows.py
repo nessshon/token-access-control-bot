@@ -3,7 +3,7 @@ from aiogram.utils.markdown import hcode, hbold, hlink
 from pytonapi.utils import userfriendly_to_raw
 
 from app.bot.manager import Manager, SendMode
-from app.bot.utils import amount_str, keyboards
+from app.bot.utils import amount_string, keyboards
 from app.bot.utils.keyboards import InlineKeyboardPaginator
 from app.bot.utils.urls import NFTBuyUrl, JettonBuyUrl
 from app.db.models import TokenDB, UserDB
@@ -24,8 +24,13 @@ class ChatWindow:
             url_class = NFTBuyUrl if token.type == token.Type.NFTCollection else JettonBuyUrl
             return url_class(token.address, token.name).hlink_name
 
+        def format_balance(token: TokenDB, balance: int) -> str:
+            if token.type == token.Type.NFTCollection:
+                return str(balance)
+            return amount_string(balance, token.decimals)
+
         balances = [
-            f"{format_token_name(token)}: {hcode(amount_str(balance))}"
+            f"{format_token_name(token)}: {hcode(format_balance(token, balance))}"
             for token in tokens
             if (balance := token.holders.get(userfriendly_to_raw(user.wallet_address), 0)) > 0
         ]
@@ -69,7 +74,7 @@ class ChatWindow:
         paginated_holders = sorted_holders[start_index:start_index + items_per_page]
 
         top_holders_text = "\n".join(
-            f"{rank + start_index + 1}. {full_name}: {hcode(amount_str(balance))}"
+            f"{rank + start_index + 1}. {full_name}: {hcode(amount_string(balance))}"
             for rank, (full_name, balance) in enumerate(paginated_holders)
         )
 
