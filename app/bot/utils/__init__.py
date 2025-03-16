@@ -37,4 +37,4 @@ async def kick_member(bot: Bot, member: MemberDB) -> None:
 
 def amount_string(amount: int, decimals: Optional[int] = None) -> str:
     amount = to_amount(amount, decimals=decimals)  # type: ignore
-    return "{:,.9}".format(Decimal(str(amount))).rstrip('0').rstrip('.')
+    return "{:.9}".format(Decimal(str(amount)))
