@@ -24,6 +24,7 @@ from .bot.commands import (
 )
 from .bot.handlers import bot_routers_include
 from .bot.middlewares import bot_middlewares_register
+from .bot.utils.session_manager import TonConnectSessionManager
 from .config import Config, load_config
 from .db.models import Base, AdminDB
 from .logger import setup_logger
@@ -40,6 +41,7 @@ async def on_startup(
         engine: AsyncEngine,
         sessionmaker: async_sessionmaker,
         tonconnect: TonConnect,
+        tc_session_manager: TonConnectSessionManager,
 ) -> None:
     """
     Startup event handler. This runs when the bot starts up.
@@ -64,7 +66,9 @@ async def on_startup(
         tonconnect=tonconnect,
     )
     bot_routers_include(dispatcher)
+
     scheduler.run()
+    tc_session_manager.run()
 
     admins_ids = await AdminDB.get_all_ids(sessionmaker, config)
     await bot_commands_setup(bot)
@@ -77,6 +81,7 @@ async def on_shutdown(
         scheduler: Scheduler,
         engine: AsyncEngine,
         sessionmaker: async_sessionmaker,
+        tc_session_manager: TonConnectSessionManager,
 ) -> None:
     """
     Shutdown event handler. This runs when the bot shuts down.
@@ -88,7 +93,9 @@ async def on_shutdown(
     await bot.delete_webhook()
     await bot.session.close()
     await engine.dispose()
+
     scheduler.shutdown()
+    tc_session_manager.stop()
 
 
 async def main() -> None:
@@ -122,6 +129,13 @@ async def main() -> None:
         manifest_url=config.MANIFEST_URL,
         api_tokens={"tonapi": config.tonapi.TONCONNECT_KEY},
     )
+    tc_session_manager = TonConnectSessionManager(
+        redis=storage.redis,
+        tc=tonconnect,
+        session_lifetime=1800,
+        check_interval=600,
+    )
+
     bot = Bot(
         token=config.bot.TOKEN,
         default=DefaultBotProperties(
@@ -138,6 +152,7 @@ async def main() -> None:
         scheduler=scheduler,
         tonapi=tonapi,
         tonconnect=tonconnect,
+        tc_session_manager=tc_session_manager,
     )
 
     # Register startup handler

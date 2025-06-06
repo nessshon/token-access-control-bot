@@ -4,12 +4,16 @@ from aiogram import BaseMiddleware
 from aiogram.types import TelegramObject, User
 
 from app.bot.manager import Manager
+from app.bot.utils.session_manager import TonConnectSessionManager
 
 
 class ManagerMiddleware(BaseMiddleware):
     """
     Middleware for handling the manager object.
     """
+
+    def __init__(self, tc_session_manager: TonConnectSessionManager) -> None:
+        self.tc_session_manager = tc_session_manager
 
     async def __call__(
             self,
@@ -26,6 +30,8 @@ class ManagerMiddleware(BaseMiddleware):
         """
         user: User = data.get("event_from_user")
         if user and not user.is_bot:
+            await self.tc_session_manager.update(user.id)
+
             # Create a new manager object
             manager = Manager(data)
             # Pass the config data to the handler function

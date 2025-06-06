@@ -9,6 +9,7 @@ from .database import DBSessionMiddleware
 from .manager import ManagerMiddleware
 from .throttling import ThrottlingMiddleware
 from ..utils.keyboards import AiogramTonconnectInlineKeyboard
+from ..utils.session_manager import TonConnectSessionManager
 from ..utils.texts import AiogramTonconnectTextMessage
 from ...scheduler import Scheduler
 
@@ -20,6 +21,7 @@ def bot_middlewares_register(dp: Dispatcher, **kwargs) -> None:
     scheduler: Scheduler = kwargs["scheduler"]
     tonconnect: TonConnect = kwargs["tonconnect"]
     sessionmaker: async_sessionmaker = kwargs["sessionmaker"]
+    tc_session_manager: TonConnectSessionManager = dp["tc_session_manager"]
 
     dp.update.outer_middleware.register(
         AiogramTonConnectMiddleware(
@@ -32,7 +34,7 @@ def bot_middlewares_register(dp: Dispatcher, **kwargs) -> None:
 
     dp.update.outer_middleware.register(DBSessionMiddleware(sessionmaker))
     dp.update.outer_middleware.register(ThrottlingMiddleware())
-    dp.update.outer_middleware.register(ManagerMiddleware())
+    dp.update.outer_middleware.register(ManagerMiddleware(tc_session_manager))
 
     dp.update.middleware.register(AiogramNewsletterMiddleware(scheduler.new(2)))
 
