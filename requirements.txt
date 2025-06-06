@@ -1,13 +1,13 @@
 aiogram~=3.15.0
-aiogram-tonconnect==0.14.7
+aiogram-tonconnect==0.15.0
 aiogram-newsletter>=0.0.12
 aiofiles~=23.2.1
 aiosqlite~=0.20.0
 alembic~=1.15.1
 apscheduler==3.10.0
 cachetools>=5.3.2
-environs==10.3.0
-pytonapi==0.4.7
+environs==14.2.0
+pytonapi==0.4.9
 redis>=5.0.2
 sqlalchemy==2.0.27
-tonutils~=0.2.5
+tonutils~=0.4.5
